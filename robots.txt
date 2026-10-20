@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Замените <user> на ваш GitHub-логин, если адрес сайта изменится
+# Sitemap: https://<user>.github.io/ipl-odintsovo/sitemap.xml
