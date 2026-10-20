@@ -3,3 +3,9 @@ _test*.html
 
 # Архив для деплоя (не в репозиторий)
 deploy.zip
+
+# Python: виртуальное окружение, кэши, результаты обработки фото
+.venv/
+__pycache__/
+.pytest_cache/
+assets/img/

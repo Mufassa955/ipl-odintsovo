@@ -48,6 +48,37 @@ python3 -m http.server 8000
 # затем открыть http://127.0.0.1:8000
 ```
 
+## Инструменты проекта
+
+### Подготовка фотографий для сайта
+
+`tools/photo_prep.py` — утилита на Python: очищает EXIF (включая GPS-координаты),
+учитывает ориентацию камеры, уменьшает до нужной ширины, сохраняет JPEG + WebP,
+делает превью и печатает отчёт об экономии.
+
+```bash
+python3 -m venv .venv
+.venv/bin/pip install -r requirements.txt
+
+# обработать папку с фото
+.venv/bin/python tools/photo_prep.py ./photos --out assets/img --max-width 1600
+
+# отчёт в JSON (для автоматизации)
+.venv/bin/python tools/photo_prep.py ./photos --out assets/img --report report.json
+```
+
+Поддерживаются JPEG, PNG, WebP, TIFF и HEIC (фото с iPhone).
+
+### Тесты
+
+```bash
+.venv/bin/python -m pytest tests/ -q
+```
+
+Покрыты: сохранение пропорций, ограничение ширины, создание всех форматов,
+удаление EXIF, пропуск не-изображений, отчёт, коды возврата CLI.
+
+
 ## Публикация
 
 Сайт публикуется через **GitHub Pages** (ветка `main`, каталог `/`):
