@@ -10,6 +10,7 @@
 <body>
 
   <header class="header">
+    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Открыть меню навигации">
     <div class="container header__inner">
       <a class="logo" href="#top">
         <span class="logo__mark" aria-hidden="true">✦</span>
@@ -19,8 +20,11 @@
         <a href="#advantages">Преимущества</a>
         <a href="#booking">Как записаться</a>
         <a href="#prices">Цены</a>
+        <a href="#faq">Вопросы</a>
+        <a href="#booking-form">Оставить заявку</a>
       </nav>
-      <a class="btn btn--small btn--outline header__cta" href="#booking">Записаться</a>
+      <a class="btn btn--small btn--outline header__cta" href="#booking-form">Записаться</a>
+      <label class="nav-toggle-btn" for="nav-toggle" aria-hidden="true"><span></span></label>
     </div>
   </header>
 
@@ -159,6 +163,93 @@
           </article>
         </div>
         <p class="note">Цены указаны за одну процедуру. При оплате курса действует скидка. Противопоказания обсуждаются на консультации.</p>
+      </div>
+    </section>
+
+    <section class="section section--tinted" id="booking-form">
+      <div class="container form__wrap">
+        <div class="form__intro">
+          <p class="eyebrow">Запись</p>
+          <h2 class="section__title">Оставьте заявку</h2>
+          <p class="form__lead">
+            Заполните форму — перезвоним в течение 15 минут в рабочее время и подберём
+            удобное время визита. Или позвоните сами:
+          </p>
+          <p class="form__phone"><a href="tel:+79000000000">+7 (900) 000-00-00</a></p>
+          <ul class="form__list">
+            <li>Консультация — бесплатно</li>
+            <li>Ответим на вопросы по процедуре</li>
+            <li>Никакого спама и навязчивых звонков</li>
+          </ul>
+        </div>
+
+        <form class="form" action="mailto:hello@ipl-odintsovo.ru" method="post" enctype="text/plain">
+          <div class="field">
+            <label for="f-name">Ваше имя</label>
+            <input type="text" id="f-name" name="Имя" placeholder="Как к вам обращаться" required>
+          </div>
+          <div class="field">
+            <label for="f-phone">Телефон</label>
+            <input type="tel" id="f-phone" name="Телефон" placeholder="+7 (___) ___-__-__" required>
+          </div>
+          <div class="field">
+            <label for="f-complex">Выбранный комплекс</label>
+            <select id="f-complex" name="Комплекс">
+              <option value="Зоны — 1900 ₽">Зоны — 1 900 ₽</option>
+              <option value="Комплекс — 3400 ₽" selected>Комплекс — 3 400 ₽</option>
+              <option value="Всё тело — 5900 ₽">Всё тело — 5 900 ₽</option>
+              <option value="Нужна консультация">Пока не знаю — нужна консультация</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="f-comment">Комментарий <span class="field__optional">— необязательно</span></label>
+            <textarea id="f-comment" name="Комментарий" rows="3" placeholder="Например: первый раз, чувствительная кожа"></textarea>
+          </div>
+          <button class="btn btn--primary btn--block" type="submit">Отправить заявку</button>
+          <p class="form__note">Заявка откроется в вашем почтовом приложении — просто нажмите «Отправить».</p>
+        </form>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <div class="container">
+        <p class="eyebrow">Частые вопросы</p>
+        <h2 class="section__title">Вопросы и ответы</h2>
+        <div class="faq">
+          <details class="faq__item" open>
+            <summary class="faq__q">Это больно?</summary>
+            <div class="faq__a">
+              <p>Ощущения сравнимы с лёгким покалыванием тёплой резинки. Большинство клиентов
+              привыкают уже с первой процедуры, а для чувствительных зон мы используем
+              обезболивающий крем и более щадящие настройки.</p>
+            </div>
+          </details>
+          <details class="faq__item">
+            <summary class="faq__q">Сколько процедур нужно?</summary>
+            <div class="faq__a">
+              <p>В среднем 4–6 процедур с интервалом 4–6 недель. Точное количество
+              мастер определит на консультации — в зависимости от типа кожи, цвета и
+              густоты волос.</p>
+            </div>
+          </details>
+          <details class="faq__item">
+            <summary class="faq__q">Есть ли противопоказания?</summary>
+            <div class="faq__a">
+              <p>Да: беременность и кормление, онкология, свежий загар, повреждения кожи
+              в зоне обработки, приём фотосенсибилизирующих препаратов. На консультации
+              мы подробно разберём вашу ситуацию и честно скажем, если процедура
+              пока не подходит.</p>
+            </div>
+          </details>
+          <details class="faq__item">
+            <summary class="faq__q">Что делать после процедуры?</summary>
+            <div class="faq__a">
+              <p>48 часов не посещайте баню, сауну и бассейн, не используйте кислоты и
+              пилинги, не загорайте. SPF 30–50 каждый день. Мы выдадим памятку
+              с рекомендациями на дом.</p>
+            </div>
+          </details>
+        </div>
       </div>
     </section>
 

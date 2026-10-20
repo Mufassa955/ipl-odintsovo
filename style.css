@@ -405,6 +405,200 @@ img { max-width: 100%; display: block; }
 }
 .tariff .btn { margin-top: auto; }
 
+/* ---------- Форма записи ---------- */
+.form__wrap {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 56px;
+  align-items: start;
+}
+
+.form__lead {
+  font-size: 17px;
+  color: var(--muted);
+  max-width: 46ch;
+  margin-bottom: 20px;
+}
+
+.form__phone {
+  font-family: var(--font-display);
+  font-size: 28px;
+  color: var(--olive-800);
+  margin-bottom: 26px;
+}
+.form__phone a:hover { color: var(--gold-500); }
+
+.form__list { display: grid; gap: 10px; }
+.form__list li {
+  position: relative;
+  padding-left: 26px;
+  font-size: 15.5px;
+  color: var(--muted);
+}
+.form__list li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: -1px;
+  color: var(--gold-500);
+  font-weight: 700;
+}
+
+.form {
+  background: var(--white);
+  border: 1px solid var(--olive-100);
+  border-radius: var(--radius);
+  padding: 32px 30px;
+  box-shadow: var(--shadow);
+}
+
+.field { margin-bottom: 18px; }
+.field label {
+  display: block;
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--olive-800);
+  margin-bottom: 7px;
+}
+.field__optional { color: var(--muted); font-weight: 400; }
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  max-width: 100%;
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--ink);
+  background: var(--cream);
+  border: 1px solid var(--olive-100);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  transition: border-color 0.18s ease, background-color 0.18s ease;
+}
+.field textarea { resize: vertical; }
+.field input:hover,
+.field select:hover,
+.field textarea:hover { border-color: var(--olive-300); }
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  outline: none;
+  background: var(--white);
+  border-color: var(--olive-500);
+  box-shadow: 0 0 0 3px rgba(98, 112, 79, 0.14);
+}
+.field input::placeholder,
+.field textarea::placeholder { color: #a9b09c; }
+
+.form__note {
+  margin-top: 14px;
+  font-size: 13.5px;
+  color: var(--muted);
+  text-align: center;
+}
+
+/* ---------- FAQ ---------- */
+.faq {
+  display: grid;
+  gap: 12px;
+  max-width: 860px;
+}
+
+.faq__item {
+  background: var(--white);
+  border: 1px solid var(--olive-100);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.faq__item[open] {
+  border-color: var(--olive-300);
+  box-shadow: var(--shadow-sm);
+}
+
+.faq__q {
+  position: relative;
+  cursor: pointer;
+  list-style: none;
+  padding: 20px 56px 20px 24px;
+  font-family: var(--font-display);
+  font-size: 19px;
+  color: var(--olive-900);
+  transition: background-color 0.18s ease;
+}
+.faq__q::-webkit-details-marker { display: none; }
+.faq__q:hover { background: var(--olive-50); }
+.faq__q::after {
+  content: "+";
+  position: absolute;
+  right: 22px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--olive-50);
+  border: 1px solid var(--olive-100);
+  color: var(--gold-500);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1;
+}
+.faq__item[open] .faq__q::after { content: "−"; }
+
+.faq__a {
+  padding: 0 24px 22px;
+  color: var(--muted);
+  font-size: 16.5px;
+}
+
+/* ---------- Мобильное меню (checkbox-хак) ---------- */
+.nav-toggle {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+}
+
+.nav-toggle-btn {
+  display: none;
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--olive-100);
+  background: var(--white);
+  cursor: pointer;
+  place-items: center;
+  flex-shrink: 0;
+}
+.nav-toggle-btn span {
+  position: relative;
+  display: block;
+  width: 18px;
+  height: 1.5px;
+  background: var(--olive-800);
+  transition: background-color 0.2s ease;
+}
+.nav-toggle-btn span::before,
+.nav-toggle-btn span::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 18px;
+  height: 1.5px;
+  background: var(--olive-800);
+  transition: transform 0.22s ease, top 0.22s ease;
+}
+.nav-toggle-btn span::before { top: -6px; }
+.nav-toggle-btn span::after { top: 6px; }
+.nav-toggle:checked + .container .nav-toggle-btn span { background: transparent; }
+.nav-toggle:checked + .container .nav-toggle-btn span::before { top: 0; transform: rotate(45deg); }
+.nav-toggle:checked + .container .nav-toggle-btn span::after { top: 0; transform: rotate(-45deg); }
+
 /* ---------- Подпись ---------- */
 .note {
   margin-top: 30px;
@@ -455,6 +649,34 @@ img { max-width: 100%; display: block; }
    Адаптив
    ============================================================ */
 
+/* Навигация: при нехватке места в шапке переходим на бургер */
+@media (max-width: 1100px) {
+  .nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    gap: 0;
+    margin-left: 0;
+    padding: 8px 18px 16px;
+    background: var(--cream);
+    border-bottom: 1px solid var(--olive-100);
+    box-shadow: var(--shadow);
+  }
+  .nav a {
+    padding: 13px 0;
+    font-size: 16px;
+    border-bottom: 1px solid var(--olive-50);
+  }
+  .nav a:last-child { border-bottom: none; }
+  .nav a::after { display: none; }
+  .nav-toggle:checked + .container .nav { display: flex; }
+  .nav-toggle-btn { display: grid; }
+  .header__cta { margin-left: auto; }
+}
+
 /* Планшет */
 @media (max-width: 1000px) {
   .hero__inner { grid-template-columns: 1fr; gap: 44px; }
@@ -462,6 +684,7 @@ img { max-width: 100%; display: block; }
   .cards, .steps, .tariffs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .tariff--featured { transform: none; }
   .footer__inner { grid-template-columns: 1fr 1fr; }
+  .form__wrap { grid-template-columns: 1fr; gap: 36px; }
 }
 
 /* Телефон */
@@ -472,8 +695,11 @@ img { max-width: 100%; display: block; }
   .section__title { margin-bottom: 34px; }
 
   .header__inner { min-height: 64px; gap: 14px; }
-  .nav { display: none; }
   .logo__text { font-size: 18px; }
+
+  .form { padding: 24px 20px; }
+  .faq__q { font-size: 17.5px; padding: 18px 48px 18px 20px; }
+  .faq__a { padding: 0 20px 20px; font-size: 16px; }
 
   .hero { padding: 56px 0 64px; }
   .hero__title { font-size: clamp(32px, 9vw, 42px); }
