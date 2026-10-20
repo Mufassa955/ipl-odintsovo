@@ -95,6 +95,7 @@ def prepare_one(
     webp_quality: int = 78,
     thumb_width: int = 480,
     write_jpeg: bool = True,
+    grayscale: bool = False,
 ) -> Result:
     """Обрабатывает один файл и возвращает отчёт по нему."""
     original_kb = src.stat().st_size / 1024
@@ -102,14 +103,18 @@ def prepare_one(
     with Image.open(src) as raw:
         exif_present = bool(raw.info.get("exif"))
         img = ImageOps.exif_transpose(raw)  # разворачивает по EXIF-ориентации
-        img = img.convert("RGB") if img.mode not in ("RGB", "L") else img
+        if grayscale:
+            # Монохром для «журнального» визуала: фото в ч/б + цветной акцент
+            img = img.convert("L").convert("RGB")
+        else:
+            img = img.convert("RGB") if img.mode not in ("RGB", "L") else img
 
         if img.width > max_width:
             ratio = max_width / img.width
             img = img.resize((max_width, max(1, round(img.height * ratio))), Image.LANCZOS)
 
         out_dir.mkdir(parents=True, exist_ok=True)
-        stem = slugify(src.stem)
+        stem = slugify(src.stem) + ("-mono" if grayscale else "")
         ext = src.suffix.lower()
 
         jpeg_path = out_dir / f"{stem}.jpg"
@@ -149,10 +154,11 @@ def prepare_dir(
     jpeg_quality: int = 82,
     webp_quality: int = 78,
     thumb_width: int = 480,
+    grayscale: bool = False,
 ) -> list[Result]:
     files = sorted(p for p in src_dir.iterdir() if p.is_file() and is_image(p))
     return [
-        prepare_one(f, out_dir, max_width, jpeg_quality, webp_quality, thumb_width)
+        prepare_one(f, out_dir, max_width, jpeg_quality, webp_quality, thumb_width, grayscale=grayscale)
         for f in files
     ]
 
@@ -165,6 +171,7 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--jpeg-quality", type=int, default=82)
     p.add_argument("--webp-quality", type=int, default=78)
     p.add_argument("--thumb-width", type=int, default=480)
+    p.add_argument("--grayscale", action="store_true", help="монохромные версии (суффикс -mono)")
     p.add_argument("--report", type=Path, help="сохранить отчёт в JSON")
     args = p.parse_args(argv)
 
@@ -175,6 +182,7 @@ def main(argv: list[str] | None = None) -> int:
     results = prepare_dir(
         args.src, args.out,
         args.max_width, args.jpeg_quality, args.webp_quality, args.thumb_width,
+        grayscale=args.grayscale,
     )
     if not results:
         print("В папке нет подходящих изображений.")

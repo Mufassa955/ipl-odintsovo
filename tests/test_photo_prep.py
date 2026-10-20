@@ -108,3 +108,14 @@ def test_cli_fails_on_missing_folder(tmp_path):
     from photo_prep import main
 
     assert main([str(tmp_path / "нет-такой-папки")]) == 1
+
+
+def test_grayscale_produces_mono_files_and_is_actually_gray(tmp_path):
+    src = make_image(tmp_path / "color.jpg", 400, 300, color=(200, 60, 40))
+    res = prepare_one(src, tmp_path / "out", grayscale=True)
+
+    assert res.source == "color.jpg"
+    assert (tmp_path / "out" / "color-mono.webp").exists()
+    with Image.open(tmp_path / "out" / "color-mono.webp") as im:
+        r, g, b = im.convert("RGB").getpixel((10, 10))
+        assert abs(r - g) < 6 and abs(g - b) < 6, "каналы должны быть равны"
