@@ -15,3 +15,6 @@ assets/img/misc/
 
 # Черновики и превью (локальные, не публикуются)
 _preview*.html
+
+# Служебные файлы macOS
+.DS_Store
