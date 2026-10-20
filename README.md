@@ -52,9 +52,9 @@ python3 -m http.server 8000
 
 Сайт публикуется через **GitHub Pages** (ветка `main`, каталог `/`):
 
-1. Репозиторий: `https://github.com/<user>/ipl-odintsovo`
+1. Репозиторий: `https://github.com/andrejisaev/ipl-odintsovo`
 2. **Settings → Pages → Source: Deploy from a branch → `main` / `/ (root)`**
-3. Сайт будет доступен по адресу `https://<user>.github.io/ipl-odintsovo/`
+3. Сайт будет доступен по адресу `https://andrejisaev.github.io/ipl-odintsovo/`
 
 ## Как править
 
