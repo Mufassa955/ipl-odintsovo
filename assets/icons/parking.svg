@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"
+     fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"
+     stroke-linejoin="round" role="img" aria-label="Парковка">
+  <title>Парковка</title>
+  <path d="M4 16v-3.5L6.5 7h11L20 12.5V16"/>
+  <path d="M3 16h18v3H3z"/>
+  <circle cx="7.5" cy="19" r="1.6"/>
+  <circle cx="16.5" cy="19" r="1.6"/>
+</svg>

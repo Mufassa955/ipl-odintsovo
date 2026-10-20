@@ -17,6 +17,7 @@ photo_prep — подготовка фотографий для веб-сайт�
 from __future__ import annotations
 
 import argparse
+import re
 import json
 import sys
 from dataclasses import dataclass, asdict
@@ -40,6 +41,33 @@ if HEIF:
 
 # Форматы, из которых имеет смысл делать JPEG
 OPAQUE_NEEDED = {".png", ".webp", ".bmp", ".tif", ".tiff"}
+
+# Транслитерация кириллицы → ASCII: URL без пробелов и кириллицы лучше для SEO
+_TRANSLIT = {
+    "а": "a", "б": "b", "в": "v", "г": "g", "д": "d", "е": "e", "ё": "e", "ж": "zh",
+    "з": "z", "и": "i", "й": "y", "к": "k", "л": "l", "м": "m", "н": "n", "о": "o",
+    "п": "p", "р": "r", "с": "s", "т": "t", "у": "u", "ф": "f", "х": "h", "ц": "ts",
+    "ч": "ch", "ш": "sh", "щ": "sch", "ъ": "", "ы": "y", "ь": "", "э": "e", "ю": "yu",
+    "я": "ya", "і": "i", "ї": "yi", "є": "ye", "ґ": "g",
+}
+
+
+def slugify(name: str) -> str:
+    """«Лазер аппарат2» → «laser-apparat-2»."""
+    out = []
+    for ch in name.lower().replace("_", " ").replace("-", " "):
+        if ch.isascii() and ch.isalnum():
+            out.append(ch)
+        elif ch in _TRANSLIT:
+            out.append(_TRANSLIT[ch])
+        else:
+            out.append("-")
+    slug = "".join(out)
+    while "--" in slug:
+        slug = slug.replace("--", "-")
+    # Разделяем буквы и цифры: «аппарат2» → «аппарат-2»
+    slug = re.sub(r"(?<=[a-z])(?=\d)|(?<=\d)(?=[a-z])", "-", slug)
+    return slug.strip("-") or "image"
 
 
 @dataclass
@@ -81,7 +109,7 @@ def prepare_one(
             img = img.resize((max_width, max(1, round(img.height * ratio))), Image.LANCZOS)
 
         out_dir.mkdir(parents=True, exist_ok=True)
-        stem = src.stem
+        stem = slugify(src.stem)
         ext = src.suffix.lower()
 
         jpeg_path = out_dir / f"{stem}.jpg"

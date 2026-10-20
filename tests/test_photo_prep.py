@@ -11,7 +11,20 @@ from PIL import Image
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools"))
 
-from photo_prep import prepare_dir, prepare_one  # noqa: E402
+from photo_prep import prepare_dir, prepare_one, slugify  # noqa: E402
+
+
+def test_slugify_transliterates_cyrillic():
+    # Транслитерация даёт «lazer» (з→z), а не английское «laser» — это ожидаемо
+    assert slugify("Лазер аппарат2") == "lazer-apparat-2"
+    assert slugify("фото мастеров1") == "foto-masterov-1"
+    assert slugify("ИНДИБА аппарат") == "indiba-apparat"
+    assert slugify("аппарат электро эпиляции") == "apparat-elektro-epilyatsii"
+
+
+def test_slugify_never_returns_empty():
+    assert slugify("///") == "image"
+    assert slugify("") == "image"
 
 
 def make_image(path: Path, w: int = 2400, h: int = 1600, color=(120, 140, 100)) -> Path:
@@ -52,9 +65,10 @@ def test_exif_is_removed(tmp_path):
 
     prepare_one(src, tmp_path / "out")
 
-    with Image.open(tmp_path / "out" / "with_exif.jpg") as im:
+    # Имя файла после обработки — ASCII-транслитерация исходного
+    with Image.open(tmp_path / "out" / "with-exif.jpg") as im:
         assert not im.getexif()
-    with Image.open(tmp_path / "out" / "with_exif.webp") as im:
+    with Image.open(tmp_path / "out" / "with-exif.webp") as im:
         assert not im.getexif()
 
 
