@@ -70,6 +70,45 @@ def slugify(name: str) -> str:
     return slug.strip("-") or "image"
 
 
+# Тонкие настройки цветокоррекции под палитру сайта
+TONES = {
+    # name: (тень, свет) — задают характер цветового тона
+    "olive": ((35, 41, 29), (244, 241, 234)),
+    "gold": ((58, 43, 22), (250, 243, 226)),
+    "warm": ((46, 36, 28), (250, 244, 232)),
+}
+
+
+def apply_tone(img: Image.Image, tone: str = "none", strength: float = 0.15) -> Image.Image:
+    """Мягко вписывает цветное фото в палитру сайта: цвет сохраняется, но появляется оттенок.
+
+    Работает через подмешивание тонированной ч/б-версии — фотография остаётся цветной,
+    но получает общий «настроенческий» оттенок раздела.
+    """
+    if tone == "none" or strength <= 0:
+        return img
+    if tone not in TONES:
+        raise ValueError(f"Неизвестный тон: {tone}. Доступные: none, {', '.join(TONES)}")
+    black, white = TONES[tone]
+    tinted = ImageOps.colorize(ImageOps.grayscale(img), black=black, white=white).convert("RGB")
+    return Image.blend(img, tinted, strength)
+
+
+def apply_crop(img: Image.Image, crop: str | None = None) -> Image.Image:
+    """Обрезает фото по долям: «x,y,w,h» (0..1). Нужно, чтобы убрать наложенный на фото текст."""
+    if not crop:
+        return img
+    try:
+        x, y, w, h = (float(v) for v in crop.split(","))
+    except ValueError as exc:
+        raise ValueError(f"Неверный кроп: {crop}. Ожидается x,y,w,h в долях") from exc
+    if not (0 <= x < 1 and 0 <= y < 1 and w > 0 and h > 0 and x + w <= 1.0001 and y + h <= 1.0001):
+        raise ValueError(f"Кроп выходит за границы: {crop}")
+    box = (round(img.width * x), round(img.height * y),
+           round(img.width * (x + w)), round(img.height * (y + h)))
+    return img.crop(box)
+
+
 @dataclass
 class Result:
     source: str
@@ -96,6 +135,9 @@ def prepare_one(
     thumb_width: int = 480,
     write_jpeg: bool = True,
     grayscale: bool = False,
+    tone: str = "none",
+    tone_strength: float = 0.15,
+    crop: str | None = None,
 ) -> Result:
     """Обрабатывает один файл и возвращает отчёт по нему."""
     original_kb = src.stat().st_size / 1024
@@ -103,11 +145,13 @@ def prepare_one(
     with Image.open(src) as raw:
         exif_present = bool(raw.info.get("exif"))
         img = ImageOps.exif_transpose(raw)  # разворачивает по EXIF-ориентации
+        img = apply_crop(img, crop)
         if grayscale:
             # Монохром для «журнального» визуала: фото в ч/б + цветной акцент
             img = img.convert("L").convert("RGB")
         else:
             img = img.convert("RGB") if img.mode not in ("RGB", "L") else img
+            img = apply_tone(img, tone, tone_strength)
 
         if img.width > max_width:
             ratio = max_width / img.width
@@ -155,10 +199,14 @@ def prepare_dir(
     webp_quality: int = 78,
     thumb_width: int = 480,
     grayscale: bool = False,
+    tone: str = "none",
+    tone_strength: float = 0.15,
+    crop: str | None = None,
 ) -> list[Result]:
     files = sorted(p for p in src_dir.iterdir() if p.is_file() and is_image(p))
     return [
-        prepare_one(f, out_dir, max_width, jpeg_quality, webp_quality, thumb_width, grayscale=grayscale)
+        prepare_one(f, out_dir, max_width, jpeg_quality, webp_quality, thumb_width,
+                    grayscale=grayscale, tone=tone, tone_strength=tone_strength, crop=crop)
         for f in files
     ]
 
@@ -172,6 +220,9 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--webp-quality", type=int, default=78)
     p.add_argument("--thumb-width", type=int, default=480)
     p.add_argument("--grayscale", action="store_true", help="монохромные версии (суффикс -mono)")
+    p.add_argument("--tone", default="none", choices=["none", *TONES], help="цветовой тон под палитру сайта")
+    p.add_argument("--tone-strength", type=float, default=0.15, help="сила тона 0..1")
+    p.add_argument("--crop", default=None, help="обрезка по долям x,y,w,h — например 0.42,0,0.58,1")
     p.add_argument("--report", type=Path, help="сохранить отчёт в JSON")
     args = p.parse_args(argv)
 
@@ -182,7 +233,7 @@ def main(argv: list[str] | None = None) -> int:
     results = prepare_dir(
         args.src, args.out,
         args.max_width, args.jpeg_quality, args.webp_quality, args.thumb_width,
-        grayscale=args.grayscale,
+        grayscale=args.grayscale, tone=args.tone, tone_strength=args.tone_strength, crop=args.crop,
     )
     if not results:
         print("В папке нет подходящих изображений.")

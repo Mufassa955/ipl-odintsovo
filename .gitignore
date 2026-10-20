@@ -19,3 +19,4 @@ _preview*.html
 # Служебные файлы macOS
 .DS_Store
 _t*.html
+_*.png

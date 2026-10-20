@@ -11,7 +11,40 @@ from PIL import Image
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools"))
 
-from photo_prep import prepare_dir, prepare_one, slugify  # noqa: E402
+from photo_prep import apply_crop, apply_tone, prepare_dir, prepare_one, slugify  # noqa: E402
+
+
+def test_crop_takes_requested_fractions():
+    img = Image.new("RGB", (1000, 500), (10, 20, 30))
+    out = apply_crop(img, "0.4,0,0.6,1")
+    assert out.size == (600, 500)
+
+
+def test_crop_is_optional():
+    img = Image.new("RGB", (800, 400))
+    assert apply_crop(img, None).size == (800, 400)
+
+
+def test_crop_rejects_invalid_values():
+    img = Image.new("RGB", (800, 400))
+    with pytest.raises(ValueError):
+        apply_crop(img, "0.9,0,0.5,1")
+    with pytest.raises(ValueError):
+        apply_crop(img, "мусор")
+
+
+def test_tone_keeps_colour_but_shifts_it():
+    """Тон не должен превращать фото в ч/б — он лишь сдвигает цвет в палитру сайта."""
+    img = Image.new("RGB", (50, 50), (200, 40, 40))  # чистый красный
+    toned = apply_tone(img, "olive", 0.2)
+    r, g, b = toned.getpixel((10, 10))
+    assert r > g > b, "красный должен остаться тёплым, а не серым"
+    assert r - b > 60, "насыщенность должна сохраниться"
+
+
+def test_tone_none_is_noop():
+    img = Image.new("RGB", (10, 10), (120, 130, 140))
+    assert apply_tone(img, "none", 0.5).getpixel((5, 5)) == (120, 130, 140)
 
 
 def test_slugify_transliterates_cyrillic():
