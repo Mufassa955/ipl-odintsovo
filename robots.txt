@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://andrejisaev.github.io/ipl-odintsovo/sitemap.xml
+Sitemap: https://mufassa955.github.io/ipl-odintsovo/sitemap.xml
