@@ -35,6 +35,10 @@
       "addressCountry": "RU"
     },
     "telephone": "+7 993 266-63-66",
+    "contactPoint": [
+      { "@type": "ContactPoint", "telephone": "+7 993 266-63-66", "contactType": "customer service" },
+      { "@type": "ContactPoint", "telephone": "+7 925 326-61-96", "contactType": "customer service" }
+    ],
     "openingHours": "Mo-Su 10:00-22:00",
     "priceRange": "500-11000 ₽",
     "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5.0", "reviewCount": "37" },
@@ -77,7 +81,10 @@
         <a href="#reviews">Отзывы</a>
         <a href="#faq">Вопросы</a>
       </nav>
-      <a class="head__phone" href="tel:+79932666366">+7 993 266-63-66</a>
+      <div class="head__phones">
+        <a href="tel:+79932666366">+7 993 266-63-66</a>
+        <a href="tel:+79253266196">+7 925 326-61-96</a>
+      </div>
       <a class="pill pill--sm" href="#booking">Записаться</a>
       <label class="burger" for="nav-toggle" aria-hidden="true"><span></span></label>
     </div>
@@ -112,8 +119,8 @@
             <a class="pill pill--ghost" href="#plans">Смотреть цены</a>
           </div>
           <dl class="stats">
-            <div><dt>5.0</dt><dd>на Яндекс.Картах</dd></div>
-            <div><dt>100+</dt><dd>отзывов клиентов</dd></div>
+            <div><dt>5.0</dt><dd>рейтинг на Яндекс.Картах</dd></div>
+            <div><dt>37</dt><dd>отзывов клиентов</dd></div>
             <div><dt>−20%</dt><dd>до 30.11.2026</dd></div>
             <div><dt>0 ₽</dt><dd>консультация-тест</dd></div>
           </dl>
@@ -499,6 +506,10 @@
             Одинцово, БЦ «Телеграф», Можайское шоссе, 20 — 5 минут от МЦК «Одинцово».<br>
             Ежедневно с 10:00 до 22:00. Запись — только после подтверждения.
           </p>
+          <div class="booking__phones">
+            <a href="tel:+79932666366">+7 993 266-63-66</a>
+            <a href="tel:+79253266196">+7 925 326-61-96</a>
+          </div>
           <div class="booking__acts">
             <a class="pill" href="https://wa.me/message/I47FFEBZUZ3HM1" rel="noopener">Написать в WhatsApp</a>
             <a class="pill pill--ghost" href="tel:+79932666366">Позвонить</a>
@@ -552,6 +563,7 @@
       <div>
         <p class="footer__title">Контакты</p>
         <p><a href="tel:+79932666366">+7 993 266-63-66</a></p>
+        <p><a href="tel:+79253266196">+7 925 326-61-96</a></p>
         <p><a href="https://t.me/iplstudioo" rel="noopener">Telegram</a> ·
            <a href="https://wa.me/message/I47FFEBZUZ3HM1" rel="noopener">WhatsApp</a> ·
            <a href="https://vk.ru/iplstudio" rel="noopener">ВКонтакте</a></p>

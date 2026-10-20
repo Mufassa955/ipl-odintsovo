@@ -120,7 +120,10 @@ s { text-decoration-thickness: 1px; }
 .nav { display: flex; gap: 26px; margin-left: auto; font-size: 14.5px; color: var(--ink-2); }
 .nav a { transition: color .18s ease; }
 .nav a:hover { color: var(--gold); }
-.head__phone { font: 600 15px/1 var(--font-body); white-space: nowrap; }
+.head__phones { display: flex; flex-direction: column; gap: 3px; text-align: right; }
+.head__phones a { font: 600 15px/1.25 var(--font-body); white-space: nowrap; }
+.head__phones a + a { font-size: 13.5px; color: var(--muted); font-weight: 500; }
+.head__phones a:hover { color: var(--gold); }
 
 .nav-toggle { position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; }
 .burger {
@@ -318,7 +321,10 @@ s { text-decoration-thickness: 1px; }
 /* ---------- Запись ---------- */
 .booking__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
 .booking .section__title { margin-bottom: 16px; }
-.booking__lead { color: var(--ink-2); margin-bottom: 24px; }
+.booking__lead { color: var(--ink-2); margin-bottom: 18px; }
+.booking__phones { display: flex; flex-wrap: wrap; gap: 10px 26px; margin-bottom: 22px; }
+.booking__phones a { font-family: var(--font-display); font-size: 25px; color: var(--ink); }
+.booking__phones a:hover { color: var(--gold); }
 .booking__acts { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 28px; }
 .booking__list { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 20px; }
 .booking__list li { position: relative; padding-left: 24px; font-size: 14.5px; color: var(--ink-2); }
@@ -366,7 +372,7 @@ s { text-decoration-thickness: 1px; }
 @media (max-width: 1000px) {
   .hero__grid, .booking__grid, .indiba__grid { grid-template-columns: 1fr; gap: 44px; }
   .plans__grid, .reviews__grid, .team__grid { grid-template-columns: 1fr; }
-  .nav, .head__phone { display: none; }
+  .nav, .head__phones { display: none; }
   .zones__grid { grid-template-columns: repeat(2, 1fr); padding-right: 0; }
   .member { grid-template-columns: 1fr; }
   .member__pic img { min-height: 340px; max-height: 460px; }

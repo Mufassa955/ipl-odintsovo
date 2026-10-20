@@ -20,3 +20,4 @@ _preview*.html
 .DS_Store
 _t*.html
 _*.png
+assets/img/masters/img-*.webp
