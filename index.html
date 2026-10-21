@@ -13,7 +13,7 @@
   <link rel="preload" href="assets/fonts/playfair-display-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/inter-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/fonts/fonts.css?v=2">
+  <link rel="stylesheet" href="assets/fonts/fonts.css?v=3">
 
   <meta property="og:type" content="website">
   <meta property="og:locale" content="ru_RU">
@@ -202,7 +202,7 @@
 }
   </script>
 
-  <link rel="stylesheet" href="style.css?v=2">
+  <link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
 
@@ -261,6 +261,7 @@
   <main id="main">
 
     <section class="hero" id="top">
+      <div class="hero__label" aria-hidden="true"></div>
       <div class="wrap hero__grid">
         <div class="hero__text">
           <p class="kicker">Студия лазерной эпиляции · Одинцово</p>
@@ -282,8 +283,16 @@
           </dl>
         </div>
         <div class="hero__pic">
-          <div class="blob">
+          <a class="hero__rating" href="https://yandex.ru/maps/org/90123463608/" rel="noopener">
+            <span class="hero__rating-score">5.0</span>
+            <span class="hero__rating-stars" aria-label="5 из 5">★★★★★</span>
+            <span class="hero__rating-text">37 отзывов на Яндекс.Картах</span>
+          </a>
+          <div class="hero__pic-main blob">
             <img src="assets/img/foto-kabineta-3.webp" alt="Кабинет лазерной эпиляции в Одинцово" width="1086" height="1448" loading="eager" fetchpriority="high">
+          </div>
+          <div class="hero__pic-side blob-2">
+            <img src="assets/img/lazer-apparat-2.webp" alt="Диодный лазерный аппарат 1S PRO" width="960" height="1280" loading="eager">
           </div>
         </div>
       </div>
@@ -399,7 +408,8 @@
               <span>Полный прайс по зонам</span>
               <span class="zones__count">24 позиции</span>
             </summary>
-            <div class="zones__grid">
+            <div class="zones__grid-wrap">
+              <div class="zones__grid">
               <p class="zone"><span>Руки</span><b>3 000 ₽</b></p>
               <p class="zone"><span>Ноги полностью</span><b>3 500 ₽</b></p>
               <p class="zone"><span>Бёдра с коленями</span><b>2 800 ₽</b></p>
@@ -424,6 +434,7 @@
               <p class="zone"><span>Шея</span><b>700 ₽</b></p>
               <p class="zone"><span>Ареолы сосков</span><b>500 ₽</b></p>
               <p class="zone zone--accent"><span>Электроэпиляция</span><b>35 ₽/мин</b></p>
+              </div>
             </div>
           </details>
         </div>
@@ -452,7 +463,8 @@
             </div>
           </figure>
 
-          <div class="bento__card bento__card--wide">
+          <div class="bento__card">
+            <span class="bento__num">01</span>
             <h3 class="bento__title">Тонус и упругость</h3>
             <p class="bento__text">Стимулируется выработка коллагена — кожа становится плотнее,
               а контуры тела — чётче. Курс из 6–8 процедур даёт заметный результат в области
@@ -460,27 +472,45 @@
           </div>
 
           <div class="bento__card">
+            <span class="bento__num">02</span>
             <h3 class="bento__title">Уходят отёки</h3>
             <p class="bento__text">Прогрев улучшает лимфоотток: припухлость и «тяжесть»
               уходят уже во время сеанса.</p>
           </div>
 
           <div class="bento__card">
+            <span class="bento__num">03</span>
             <h3 class="bento__title">Коррекция объёмов</h3>
             <p class="bento__text">Заметное уменьшение жировых объёмов — без операций
               и без реабилитации.</p>
           </div>
 
-          <div class="bento__card bento__card--wide bento__card--dark">
-            <h3 class="bento__title">Восстановление мышечного каркаса</h3>
+          <div class="bento__card">
+            <span class="bento__num">04</span>
+            <h3 class="bento__title">Мышечный каркас</h3>
             <p class="bento__text">Тонус мышц и кожи — для тех, кто много работает ногами и спиной.
-              Идеальное дополнение к курсу эпиляции: тело выглядит подтянутым и гладким.</p>
+              Идеальное дополнение к курсу эпиляции.</p>
           </div>
 
           <div class="bento__card bento__card--cta">
-            <p class="bento__text">Точный протокол зависит от состояния кожи и ваших задач.
-              На консультации мастер подберёт курс и покажет, что подходит именно вам.</p>
+            <h3 class="bento__title bento__title--lg">Подберём протокол под вас</h3>
+            <p class="bento__text">На консультации мастер оценит состояние кожи, задачи и
+              противопоказания — и скажет честно, что подойдёт, а что нет. Консультация
+              бесплатная и ни к чему не обязывает.</p>
             <a class="pill" href="#booking">Консультация по INDIBA</a>
+          </div>
+
+          <div class="bento__card bento__card--prices">
+            <h3 class="bento__title">Стоимость процедур INDIBA</h3>
+            <p class="bento__text bento__text--sm">Цена за одну процедуру, в зависимости от зоны:</p>
+            <ul class="indiba__prices">
+              <li><span>Лицо, шея, декольте</span><b>3 000 ₽</b></li>
+              <li><span>Руки</span><b>3 000 ₽</b></li>
+              <li><span>Живот</span><b>3 500 ₽</b></li>
+              <li><span>Ягодицы</span><b>4 000 ₽</b></li>
+              <li><span>Спина</span><b>4 000 ₽</b></li>
+              <li><span>Ноги</span><b>5 000 ₽</b></li>
+            </ul>
           </div>
         </div>
       </div>
@@ -509,7 +539,7 @@
 
           <article class="member">
             <div class="member__pic">
-              <img src="assets/img/masters/valeriya.webp" alt="Валерия, специалист по лазерной и электроэпиляции" width="1122" height="1402" loading="lazy">
+              <img src="assets/img/masters/valeriya.webp?v=2" alt="Валерия, специалист по лазерной и электроэпиляции" width="1122" height="1192" loading="lazy">
             </div>
             <div class="member__body">
               <h3 class="member__name">Валерия</h3>
@@ -758,14 +788,14 @@
             <input type="tel" id="f-phone" name="Телефон" placeholder="+7 (___) ___-__-__" required>
           </div>
           <div class="field">
-            <label for="f-plan">Комплекс</label>
-            <select id="f-plan" name="Комплекс">
+            <label for="f-plan">Услуга</label>
+            <select id="f-plan" name="Услуга">
               <option>Тотал Плюс — 8 800 ₽</option>
               <option>Тотал Боди — 7 600 ₽</option>
               <option>Тотал Лайт — 6 240 ₽</option>
-              <option>Отдельная зона</option>
+              <option>Лазерная эпиляция — отдельная зона</option>
               <option>Электроэпиляция — 35 ₽/мин</option>
-              <option>INDIBA · омоложение</option>
+              <option>INDIBA · омоложение и тонус</option>
             </select>
           </div>
           <div class="field">
@@ -800,6 +830,7 @@
   </main>
 
   <footer class="footer">
+    <div class="footer__label" aria-hidden="true"></div>
     <div class="wrap footer__grid">
       <div>
         <p class="footer__brand">IPL</p>
