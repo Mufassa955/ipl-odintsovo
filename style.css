@@ -18,7 +18,8 @@
   --gold: #888b48;          /* акцент бренда */
   --gold-2: #a2a478;        /* светлый акцент на тёмном фоне */
   --line: rgba(70, 72, 39, .16);
-  --label: url("assets/img/fon.webp");   /* лейбл кабинета как фактура */
+  --label: url("assets/img/label.webp");   /* круглый лейбл кабинета */
+  --texture: url("assets/img/fon.webp");   /* фактура фона студии */
 
   /* Типографика */
   --font-display: "Playfair Display", Georgia, "Times New Roman", serif;
@@ -127,7 +128,7 @@ s { text-decoration-thickness: 1px; }
 
 .hero__label {
   position: absolute; inset: 0; z-index: 0; pointer-events: none;
-  background: var(--label) center/cover no-repeat;
+  background: var(--texture) center/cover no-repeat;
   opacity: .07; mix-blend-mode: multiply;
   -webkit-mask-image: linear-gradient(120deg, #000 20%, transparent 70%);
   mask-image: linear-gradient(120deg, #000 20%, transparent 70%);
@@ -190,6 +191,30 @@ s { text-decoration-thickness: 1px; }
 .stats div { display: flex; flex-direction: column; }
 .stats dt { font-family: var(--font-display); font-size: 27px; }
 .stats dd { margin: 0; font-size: 13px; color: var(--muted); }
+
+/* Ссылка-рейтинг в статистике */
+.stats__link { display: inline-flex; align-items: baseline; gap: 9px; transition: color .2s ease; }
+.stats__link b { font-family: var(--font-display); font-size: 27px; font-weight: 500; }
+.stats__link:hover { color: var(--olive-2); }
+.stats__stars {
+  color: #d9b45f; font-size: 15px; letter-spacing: 2px; position: relative; top: -2px;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, .06);
+}
+
+/* «Живая» кнопка на скидку */
+.stats__cta {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-display); font-size: 25px; color: var(--ink);
+  padding: 8px 20px; border-radius: 999px;
+  border: 1px solid var(--line); background: var(--card);
+  transition: background-color .22s ease, color .22s ease, border-color .22s ease, transform .22s ease, box-shadow .22s ease;
+}
+.stats__cta::after { content: "→"; font-family: var(--font-body); font-size: 17px; color: var(--gold); }
+.stats__cta:hover {
+  background: var(--olive); border-color: var(--olive); color: #f4f1ea;
+  transform: translateY(-2px); box-shadow: var(--shadow);
+}
+.stats__cta:hover::after { color: var(--gold-2); }
 
 .hero__pic { position: relative; padding: 0 0 64px 56px; }
 .hero__pic-main {
@@ -402,6 +427,7 @@ s { text-decoration-thickness: 1px; }
 }
 .indiba__prices li:last-child { border-bottom: none; }
 .indiba__prices b { font-family: var(--font-display); font-size: 17px; font-weight: 500; color: var(--ink); white-space: nowrap; }
+.indiba__prices b s { color: var(--muted); font-size: 13.5px; margin-left: 6px; }
 
 /* ---------- Мастера ---------- */
 .team { background: var(--bg-2); }
@@ -421,8 +447,8 @@ s { text-decoration-thickness: 1px; }
 .member:nth-child(2) .member__pic img { object-position: 64% 20%; }
 .member__body { padding: 28px 26px 30px; }
 .member__name { font-size: 25px; margin-bottom: 4px; }
-.member__role { font: 600 12px/1 var(--font-body); letter-spacing: .12em; text-transform: uppercase; color: var(--gold); margin: 0 0 14px; }
-.member__text { font-size: 14.5px; color: var(--ink-2); margin: 0; }
+.member__role { font: 600 12px/1.4 var(--font-body); letter-spacing: .12em; text-transform: uppercase; color: var(--gold); margin: 0 0 14px; }
+.member__text { font-size: 14.5px; line-height: 1.72; color: var(--ink-2); margin: 0; }
 
 /* ---------- Галерея: раскрытие по клику ---------- */
 .gallery__grid {
@@ -499,20 +525,32 @@ s { text-decoration-thickness: 1px; }
 .reviews .kicker { color: #b3b6a8; }
 .reviews .section__title { color: #f1efe8; }
 .reviews__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
-.reviews__more { margin-top: 34px; }
-.reviews .pill--ghost {
-  color: #f1efe8; border-color: rgba(241, 239, 232, .3); background: transparent;
-}
-.reviews .pill--ghost:hover {
-  background: rgba(241, 239, 232, .12); color: #fff; border-color: rgba(241, 239, 232, .55);
-}
 .review {
   margin: 0; background: rgba(255, 255, 255, .06); border: 1px solid rgba(255, 255, 255, .12);
   border-radius: 18px; padding: 26px 24px; font-size: 15px; color: #dcded3;
 }
-.stars { color: var(--gold-2); letter-spacing: 2px; margin: 0 0 12px; }
+.stars {
+  color: #d9b45f; letter-spacing: 2px; margin: 0 0 12px; font-size: 15px;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, .18);
+}
 .review__text { margin: 0; }
 .review__author { display: block; margin-top: 16px; font: 600 13px/1 var(--font-body); font-style: normal; color: var(--gold-2); }
+
+/* Кнопка «все отзывы» — акцентная, в стиле премиум-кнопок */
+.reviews__more { margin-top: 34px; }
+.reviews__more .pill {
+  background: transparent; color: #f1efe8; border-color: rgba(217, 180, 95, .45);
+  padding: 14px 28px;
+}
+.reviews__more .pill::after {
+  content: "→"; margin-left: 8px; font-family: var(--font-body); color: #d9b45f;
+  transition: transform .25s ease;
+}
+.reviews__more .pill:hover {
+  background: #d9b45f; border-color: #d9b45f; color: #23281a;
+  box-shadow: 0 10px 30px rgba(217, 180, 95, .22);
+}
+.reviews__more .pill:hover::after { color: #23281a; transform: translateX(4px); }
 
 /* ---------- FAQ: выпадающий список с анимацией ---------- */
 .faq { max-width: 880px; display: grid; gap: 10px; }

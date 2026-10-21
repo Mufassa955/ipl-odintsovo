@@ -87,7 +87,41 @@
     });
   }
 
-  /* ---------- 4. Якоря с учётом липкой шапки ---------- */
+  /* ---------- 4. Маска телефона: +7 подставляется автоматически ---------- */
+  var phone = document.getElementById('f-phone');
+  if (phone) {
+    function formatPhone(digits) {
+      var d = digits.replace(/\D/g, '').replace(/^8/, '7').replace(/^7/, '');
+      d = d.slice(0, 10);
+      var out = '+7';
+      if (d.length) out += ' (' + d.slice(0, 3);
+      if (d.length >= 3) out += ') ' + d.slice(3, 6);
+      if (d.length >= 6) out += '-' + d.slice(6, 8);
+      if (d.length >= 8) out += '-' + d.slice(8, 10);
+      return out;
+    }
+
+    phone.addEventListener('input', function () {
+      var caretAtEnd = phone.selectionStart === phone.value.length;
+      var digits = phone.value.replace(/\D/g, '');
+      if (digits.charAt(0) === '8') digits = '7' + digits.slice(1);
+      phone.value = formatPhone(digits);
+      if (caretAtEnd) {
+        var len = phone.value.length;
+        try { phone.setSelectionRange(len, len); } catch (e) { /* не все типы поддерживают */ }
+      }
+    });
+
+    phone.addEventListener('focus', function () {
+      if (!phone.value) phone.value = '+7 (';
+    });
+
+    phone.addEventListener('blur', function () {
+      if (phone.value.replace(/\D/g, '').length <= 1) phone.value = '';
+    });
+  }
+
+  /* ---------- 5. Якоря с учётом липкой шапки ---------- */
   var header = document.querySelector('.head');
   var links = Array.prototype.slice.call(document.querySelectorAll('a[href^="#"]'));
 
