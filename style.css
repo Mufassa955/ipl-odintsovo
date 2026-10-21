@@ -209,6 +209,8 @@ s { text-decoration-thickness: 1px; }
   border: 1px solid var(--line); background: var(--card);
   transition: background-color .22s ease, color .22s ease, border-color .22s ease, transform .22s ease, box-shadow .22s ease;
 }
+/* Обе акции — одинаковые белые карточки */
+.stats__cta--soft { background: var(--card); border-color: var(--line); font-size: 25px; padding: 8px 20px; }
 .stats__cta::after { content: "→"; font-family: var(--font-body); font-size: 17px; color: var(--gold); }
 .stats__cta--soft {
   background: var(--bg-2); border-color: var(--line);
@@ -831,7 +833,8 @@ s { text-decoration-thickness: 1px; }
 .footer__tagline { font-size: 13.5px; color: #a8ab9d; line-height: 1.5; }
 .footer__lead { font-size: 15px; color: #b9bcaf; max-width: 42ch; margin: 0 0 26px; }
 
-.footer__social { display: flex; gap: 12px; }
+.footer__social { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.footer__social-note { font-size: 13.5px; color: #a8ab9d; margin-left: 4px; }
 .footer__social a {
   width: 44px; height: 44px; border-radius: 50%;
   display: grid; place-items: center; color: #f4f1ea;
