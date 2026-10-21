@@ -114,7 +114,11 @@
     var MAX_DIGITS = 10;
 
     function digitsOf(value) {
-      return value.replace(/\D/g, '').replace(/^8/, '7').replace(/^7/, '');
+      var d = value.replace(/\D/g, '');
+      // 8 в начале → 7, затем отбрасываем 7 префикса (+7)
+      if (d.charAt(0) === '8') d = '7' + d.slice(1);
+      if (d.charAt(0) === '7') d = d.slice(1);
+      return d;
     }
 
     function rawForm(d) {
@@ -152,6 +156,14 @@
     phone.addEventListener('blur', function () {
       var d = digitsOf(phone.value).slice(0, MAX_DIGITS);
       phone.value = d.length ? prettyForm(d) : '';
+    });
+
+    // Вставка из буфера: разбираем и переформатируем
+    phone.addEventListener('paste', function () {
+      setTimeout(function () {
+        var d = digitsOf(phone.value).slice(0, MAX_DIGITS);
+        phone.value = rawForm(d);
+      }, 0);
     });
   }
 
