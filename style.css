@@ -294,11 +294,10 @@ s { text-decoration-thickness: 1px; }
 }
 /* Лейбл кабинета ненавязчиво на оливковой карточке «Тотал Плюс» */
 .plan--top::before {
-  content: "IPL"; position: absolute; right: -18px; top: -26px;
-  font-family: var(--font-display); font-weight: 600; font-size: 120px; line-height: .8;
-  letter-spacing: .06em; color: transparent;
-  -webkit-text-stroke: 1.4px var(--gold-2);
-  opacity: .22; pointer-events: none; z-index: 0;
+  content: "IPL"; position: absolute; right: -6px; top: -18px;
+  font-family: "Pinyon Script", cursive; font-weight: 400; font-size: 150px; line-height: 1;
+  color: transparent; -webkit-text-stroke: 1.2px var(--gold-2);
+  opacity: .3; pointer-events: none; z-index: 0;
 }
 .plan > * { position: relative; z-index: 1; }
 .plan:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
@@ -757,26 +756,27 @@ s { text-decoration-thickness: 1px; }
   opacity: 1 !important; transform: none !important; animation: none !important;
 }
 
-/* ---------- Водяной знак «IPL» (вместо картинки-фона) ---------- */
+/* ---------- Водяной знак «IPL» — каллиграфия с лейбла кабинета ---------- */
 .hero__label, .footer__label {
   position: absolute; z-index: 0; pointer-events: none; user-select: none;
   background: none;
-  font-family: var(--font-display); font-weight: 600;
-  line-height: .8; letter-spacing: .08em;
+  font-family: "Pinyon Script", cursive;
+  font-weight: 400;
+  line-height: 1; letter-spacing: .04em;
   color: transparent;
-  -webkit-text-stroke: 1.5px var(--ink);
-  opacity: .07;
+  -webkit-text-stroke: 1.2px var(--ink);
+  opacity: .1;
 }
 .hero__label {
-  left: 50%; top: 46%; transform: translate(-50%, -50%);
-  font-size: clamp(180px, 30vw, 460px);
-  -webkit-text-stroke-width: 2px;
+  left: 50%; top: 48%; transform: translate(-50%, -50%);
+  font-size: clamp(200px, 34vw, 520px);
+  -webkit-text-stroke-width: 1.4px;
 }
 .footer__label {
-  right: -2%; bottom: -12%;
-  font-size: clamp(160px, 22vw, 340px);
+  right: -1%; bottom: -6%;
+  font-size: clamp(170px, 24vw, 380px);
   -webkit-text-stroke-color: var(--gold-2);
-  opacity: .12;
+  opacity: .16;
 }
 .hero__grid, .footer__grid, .footer__bottom { position: relative; z-index: 1; }
 
