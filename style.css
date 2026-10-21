@@ -435,7 +435,7 @@ s { text-decoration-thickness: 1px; }
 /* ---------- INDIBA: bento-сетка ---------- */
 .indiba { background: var(--bg-2); }
 .indiba .section__title { margin-bottom: 18px; }
-.indiba__lead { font-size: 16.5px; color: var(--ink-2); max-width: 68ch; margin: 0 0 34px; }
+.tech__lead { font-size: 16.5px; color: var(--ink-2); max-width: 74ch; margin: 0 0 34px; }
 
 .bento { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
 .bento__card {
