@@ -87,12 +87,41 @@
     });
   }
 
-  /* ---------- 4. Маска телефона: +7 подставляется автоматически ---------- */
+  /* ---------- 4. Имя: каждое слово с большой буквы ---------- */
+  var nameField = document.getElementById('f-name');
+  if (nameField) {
+    nameField.addEventListener('input', function () {
+      var value = nameField.value;
+      // Заглавная буква в начале строки, после пробела и после дефиса
+      // (Анна-Мария, Иван Петров), но не внутри слова
+      var fixed = value.replace(/(^|[\s-])([a-zа-яё])/g, function (match, space, letter) {
+        return space + letter.toUpperCase();
+      });
+      if (fixed !== value) {
+        var pos = nameField.selectionStart;
+        nameField.value = fixed;
+        try { nameField.setSelectionRange(pos, pos); } catch (e) { /* нет поддержки */ }
+      }
+    });
+  }
+
+  /* ---------- 5. Телефон: +7 подставляется сам, курсор не убегает ----------
+     Логика: пока поле в фокусе — внутри только цифры с префиксом «+7 »,
+     поэтому Backspace/Delete работают как в обычном тексте.
+     Красивое форматирование (+7 (916) 123-45-67) применяется только при blur. */
   var phone = document.getElementById('f-phone');
   if (phone) {
-    function formatPhone(digits) {
-      var d = digits.replace(/\D/g, '').replace(/^8/, '7').replace(/^7/, '');
-      d = d.slice(0, 10);
+    var MAX_DIGITS = 10;
+
+    function digitsOf(value) {
+      return value.replace(/\D/g, '').replace(/^8/, '7').replace(/^7/, '');
+    }
+
+    function rawForm(d) {
+      return d ? '+7 ' + d : '';
+    }
+
+    function prettyForm(d) {
       var out = '+7';
       if (d.length) out += ' (' + d.slice(0, 3);
       if (d.length >= 3) out += ') ' + d.slice(3, 6);
@@ -101,23 +130,28 @@
       return out;
     }
 
+    // При фокусе: убираем скобки и дефисы, чтобы можно было свободно править текст
+    phone.addEventListener('focus', function () {
+      var d = digitsOf(phone.value).slice(0, MAX_DIGITS);
+      phone.value = rawForm(d) || '+7 ';
+    });
+
+    // Во время набора: только цифры, форматирование не трогаем
     phone.addEventListener('input', function () {
-      var caretAtEnd = phone.selectionStart === phone.value.length;
-      var digits = phone.value.replace(/\D/g, '');
-      if (digits.charAt(0) === '8') digits = '7' + digits.slice(1);
-      phone.value = formatPhone(digits);
-      if (caretAtEnd) {
-        var len = phone.value.length;
-        try { phone.setSelectionRange(len, len); } catch (e) { /* не все типы поддерживают */ }
+      var d = digitsOf(phone.value).slice(0, MAX_DIGITS);
+      var next = rawForm(d);
+      if (next !== phone.value) {
+        var pos = phone.selectionStart;
+        phone.value = next;
+        // каретка остаётся на прежней позиции, если правка была в середине
+        try { phone.setSelectionRange(pos, pos); } catch (e) { /* нет поддержки */ }
       }
     });
 
-    phone.addEventListener('focus', function () {
-      if (!phone.value) phone.value = '+7 (';
-    });
-
+    // При выходе: красивое форматирование
     phone.addEventListener('blur', function () {
-      if (phone.value.replace(/\D/g, '').length <= 1) phone.value = '';
+      var d = digitsOf(phone.value).slice(0, MAX_DIGITS);
+      phone.value = d.length ? prettyForm(d) : '';
     });
   }
 
