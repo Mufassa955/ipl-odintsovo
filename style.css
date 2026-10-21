@@ -902,6 +902,14 @@ s { text-decoration-thickness: 1px; }
 .review .stars { transition: text-shadow .3s ease, color .3s ease; }
 .review:hover .stars { text-shadow: 0 0 14px rgba(217, 180, 95, .55); }
 
+
+/* Ритм фонов секций (после перестановки блоков) */
+.laser { background: var(--bg); }
+.zones { background: var(--bg); }
+.gallery { background: var(--bg); }
+.faq { background: var(--bg); }
+.booking { background: var(--bg-2); }
+
 /* ---------- Полоса цен под блоком технологии ---------- */
 .tech-prices {
   margin-top: 24px;
