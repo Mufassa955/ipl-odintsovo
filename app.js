@@ -172,7 +172,31 @@
     });
   }
 
-  /* ---------- 5. Якоря с учётом липкой шапки ---------- */
+  /* ---------- 5. Мобильное меню: закрывается после выбора пункта ---------- */
+  var navToggle = document.getElementById('nav-toggle');
+  var header = document.querySelector('.head');
+
+  if (navToggle && header) {
+    function closeNav() { navToggle.checked = false; }
+
+    // выбрали пункт — закрываем
+    Array.prototype.forEach.call(header.querySelectorAll('.nav a, .head__in .pill--sm'), function (link) {
+      link.addEventListener('click', closeNav);
+    });
+
+    // клик вне шапки — закрываем
+    document.addEventListener('click', function (event) {
+      if (!navToggle.checked) return;
+      if (!header.contains(event.target)) closeNav();
+    });
+
+    // Escape — закрываем
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape') closeNav();
+    });
+  }
+
+  /* ---------- 6. Якоря с учётом липкой шапки ---------- */
   var header = document.querySelector('.head');
   var links = Array.prototype.slice.call(document.querySelectorAll('a[href^="#"]'));
 
