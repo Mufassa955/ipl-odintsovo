@@ -202,7 +202,7 @@
 }
   </script>
 
-  <link rel="stylesheet" href="style.css?v=17">
+  <link rel="stylesheet" href="style.css?v=18">
 </head>
 <body>
 
@@ -210,7 +210,8 @@
 
   <div class="marquee" aria-hidden="true">
     <div class="marquee__track">
-      <span>−20% на первый комплекс до 30.11.2026</span><span>−15% на первое посещение</span>
+      <span>−20% на лазерный комплекс до 30.11.2026</span><span>−20% на комплекс INDIBA</span>
+      <span>−15% на первое посещение</span><span>−10% за рекомендацию</span>
       <span>БЦ «Телеграф» · 5 минут от МЦК «Одинцово»</span><span>Лазер 1S PRO · IPL три импульса</span>
       <span>Бесплатная консультация</span><span>Ежедневно с 10:00 до 22:00</span>
       <span>−20% на первый комплекс до 30.11.2026</span><span>−15% на первое посещение</span>
@@ -307,21 +308,57 @@
       </div>
     </section>
 
-    <section class="promo" aria-label="Акция">
-      <div class="wrap promo__inner">
-        <div class="promo__badge">
-          <span class="promo__num">−20%</span>
-          <span class="promo__caption">на первый комплекс</span>
+    <section class="promo" aria-label="Скидки">
+      <div class="wrap">
+        <div class="promo__head">
+          <p class="kicker">Скидки</p>
+          <h2 class="promo__title">Три способа сэкономить</h2>
         </div>
-        <div class="promo__text">
-          <p class="promo__title">Первое посещение со скидкой — до 30 ноября 2026</p>
-          <p class="promo__note">
-            Действуют две скидки: −20% на первый комплекс (Тотал Плюс, Тотал Боди или Тотал Лайт)
-            и −15% на первое посещение. Они <b>не суммируются</b> — применяется одна, наиболее
-            выгодная для вас. Подберём её на консультации.
+
+        <div class="promo__grid">
+          <article class="promo__card">
+            <span class="promo__card-badge">−20%</span>
+            <h3 class="promo__card-title">На первый лазерный комплекс</h3>
+            <p class="promo__card-text">
+              Тотал Плюс, Тотал Боди или Тотал Лайт на аппарате 1S PRO. Скидка действует
+              до 30 ноября 2026 года.
+            </p>
+          </article>
+
+          <article class="promo__card">
+            <span class="promo__card-badge">−20%</span>
+            <h3 class="promo__card-title">На комплекс INDIBA</h3>
+            <p class="promo__card-text">
+              Зоны подбираем индивидуально на консультации: тонус кожи, восстановление
+              или курс для лица — и применяем скидку на выбранный набор процедур.
+            </p>
+          </article>
+
+          <article class="promo__card">
+            <span class="promo__card-badge">−15%</span>
+            <h3 class="promo__card-title">На первое посещение</h3>
+            <p class="promo__card-text">
+              Лазерная эпиляция любой зоны или зона INDIBA. Подскажем на консультации,
+              что выгоднее именно для вас.
+            </p>
+          </article>
+        </div>
+
+        <div class="promo__referral">
+          <span class="promo__referral-badge">−10%</span>
+          <p class="promo__referral-text">
+            <b>Приведите подругу — выиграете обе.</b> Когда она запишется, вы получите
+            −10% на свою следующую процедуру, а она — −15% на первое посещение.
           </p>
         </div>
-        <a class="pill pill--gold" href="#booking">Забрать скидку</a>
+
+        <div class="promo__foot">
+          <p class="promo__note">
+            Скидки между собой <b>не суммируются</b>: на первом визите применяется одна,
+            наиболее выгодная для вас. Подберём её на консультации.
+          </p>
+          <a class="pill pill--gold" href="#booking">Забрать скидку</a>
+        </div>
       </div>
     </section>
 
@@ -409,11 +446,11 @@
             <p class="tech-prices__note">−15% на первое посещение</p>
           </div>
           <ul class="tech-prices__list">
-            <li><span>Подмышечные впадины</span><b>1 300 ₽</b></li>
-            <li><span>Бикини классика</span><b>2 000 ₽</b></li>
-            <li><span>Лицо полностью</span><b>1 700 ₽</b></li>
-            <li><span>Ноги полностью</span><b>3 500 ₽</b></li>
-            <li><span>Спина</span><b>3 500 ₽</b></li>
+            <li><span>Подмышечные впадины</span><b>1 105 ₽ <s>1 300 ₽</s></b></li>
+            <li><span>Бикини классика</span><b>1 700 ₽ <s>2 000 ₽</s></b></li>
+            <li><span>Лицо полностью</span><b>1 445 ₽ <s>1 700 ₽</s></b></li>
+            <li><span>Ноги полностью</span><b>2 975 ₽ <s>3 500 ₽</s></b></li>
+            <li><span>Спина</span><b>2 975 ₽ <s>3 500 ₽</s></b></li>
           </ul>
         </div>
       </div>
@@ -641,10 +678,13 @@
             <p class="tech-prices__note">−15% на первое посещение</p>
           </div>
           <ul class="tech-prices__list">
-            <li><span>Электроэпиляция</span><b>35 ₽ за минуту</b></li>
+            <li><span>Электроэпиляция</span><b>30 ₽ <s>35 ₽</s> за минуту</b></li>
             <li><span>Зоны работы</span><b>подмышки, бикини, голени, спина, лицо</b></li>
             <li><span>Отдельные волоски</span><b>точечно, по одному</b></li>
           </ul>
+          <p class="tech-prices__fine">
+            −15% на первое посещение: 29,75 ₽ за минуту округляем до 30 ₽ в вашу пользу.
+          </p>
         </div>
       </div>
     </section>
@@ -660,22 +700,22 @@
             <div class="zone-fav__grid">
               <div class="zone-card">
                 <span class="zone-card__name">Подмышечные впадины</span>
-                <b class="zone-card__price">1 300 ₽</b>
+                <b class="zone-card__price">1 105 ₽ <s>1 300 ₽</s></b>
                 <span class="zone-card__note">≈ 10 минут</span>
               </div>
               <div class="zone-card">
                 <span class="zone-card__name">Бикини классика</span>
-                <b class="zone-card__price">2 000 ₽</b>
+                <b class="zone-card__price">1 700 ₽ <s>2 000 ₽</s></b>
                 <span class="zone-card__note">≈ 20 минут</span>
               </div>
               <div class="zone-card">
                 <span class="zone-card__name">Ноги полностью</span>
-                <b class="zone-card__price">3 500 ₽</b>
+                <b class="zone-card__price">2 975 ₽ <s>3 500 ₽</s></b>
                 <span class="zone-card__note">≈ 40 минут</span>
               </div>
               <div class="zone-card zone-card--accent">
                 <span class="zone-card__name">INDIBA · лицо, шея, декольте</span>
-                <b class="zone-card__price">2 550 ₽</b>
+                <b class="zone-card__price">2 550 ₽ <s>3 000 ₽</s></b>
                 <span class="zone-card__note">тонус кожи и омоложение</span>
               </div>
             </div>

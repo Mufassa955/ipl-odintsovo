@@ -288,19 +288,54 @@ s { text-decoration-thickness: 1px; }
 }
 
 /* ---------- Акция ---------- */
-.promo { background: var(--olive); color: #f1efe8; padding: 30px 0; }
-.promo__inner { display: flex; align-items: center; gap: 32px; flex-wrap: wrap; }
-.promo__badge {
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  min-width: 148px; padding: 16px 22px; border-radius: var(--radius-sm);
-  background: var(--gold); color: #241f14; text-align: center; flex-shrink: 0;
+/* ---------- Блок скидок ---------- */
+.promo { background: var(--olive); color: #f1efe8; padding: 58px 0; }
+.promo__head { margin-bottom: 30px; }
+.promo__title { font-family: var(--font-display); font-size: clamp(28px, 3.4vw, 42px); margin: 0; }
+
+.promo__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.promo__card {
+  background: rgba(255, 255, 255, .05);
+  border: 1px solid rgba(241, 239, 232, .14);
+  border-radius: var(--radius);
+  padding: 26px 24px 28px;
+  transition: background-color .25s ease, border-color .25s ease, transform .25s ease;
 }
-.promo__num { font-family: var(--font-display); font-size: 40px; line-height: 1; }
-.promo__caption { font: 600 11px/1.3 var(--font-body); letter-spacing: .1em; text-transform: uppercase; margin-top: 6px; }
-.promo__text { flex: 1 1 320px; }
-.promo__title { font-family: var(--font-display); font-size: clamp(19px, 2.2vw, 25px); margin: 0 0 6px; }
-.promo__note { font-size: 14px; color: #c3c6ba; max-width: 68ch; margin: 0; }
+.promo__card:hover {
+  background: rgba(255, 255, 255, .09);
+  border-color: rgba(217, 180, 95, .45);
+  transform: translateY(-3px);
+}
+.promo__card-badge {
+  display: inline-block; font-family: var(--font-display); font-size: 32px;
+  line-height: 1; color: var(--gold-2); margin-bottom: 14px;
+}
+.promo__card-title { font-family: var(--font-display); font-size: 19px; color: #f1efe8; margin: 0 0 10px; }
+.promo__card-text { font-size: 14.5px; line-height: 1.6; color: #b9bcaf; margin: 0; }
+
+/* Рекомендация — выгода для обеих сторон */
+.promo__referral {
+  margin-top: 16px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+  background: rgba(217, 180, 95, .12);
+  border: 1px solid rgba(217, 180, 95, .34);
+  border-radius: var(--radius);
+  padding: 20px 26px;
+}
+.promo__referral-badge { font-family: var(--font-display); font-size: 27px; line-height: 1; color: var(--gold-2); flex-shrink: 0; }
+.promo__referral-text { font-size: 15px; line-height: 1.6; color: #e2dfd4; margin: 0; max-width: 82ch; }
+.promo__referral-text b { color: #f7f4ea; }
+
+.promo__foot { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; margin-top: 24px; }
+.promo__note { flex: 1 1 320px; font-size: 14px; color: #c3c6ba; max-width: 76ch; margin: 0; }
+.promo__note b { color: #f1efe8; }
 .promo .pill { flex-shrink: 0; }
+
+/* Зачёркнутая цена в карточках «часто выбирают» */
+.zone-card__price s { color: var(--muted); font-size: .72em; margin-left: 6px; }
+.zone-card--accent .zone-card__price s { color: rgba(244, 241, 234, .55); }
+
+/* Сноска под ценами */
+.tech-prices__fine { grid-column: 1 / -1; margin: 14px 0 0; font-size: 12.5px; color: var(--muted); }
 /* ---------- Комплексы ---------- */
 .plans { background: var(--bg-2); }
 .plans__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
@@ -776,7 +811,7 @@ s { text-decoration-thickness: 1px; }
 .static .reveal.is-visible {
   opacity: 1 !important; transform: none !important; animation: none !important;
 }
-.static .fab__btn, .static .promo__badge, .static .zones__promo-badge,
+.static .fab__btn, .static .zones__promo-badge,
 .static .footer__mark-img, .static .stats__cta::after { animation: none !important; }
 .static .gallery .gallery__item,
 .static .indiba .bento__card {
@@ -826,7 +861,7 @@ s { text-decoration-thickness: 1px; }
 /* ---------- Анимации: акценты и микро-движение ---------- */
 
 /* Бейдж скидки — мягкое «дыхание» */
-.promo__badge, .zones__promo-badge { animation: breathe 5.5s ease-in-out infinite; }
+.zones__promo-badge { animation: breathe 5.5s ease-in-out infinite; }
 @keyframes breathe {
   0%, 100% { transform: scale(1); }
   50% { transform: scale(1.035); }
@@ -1032,13 +1067,10 @@ s { text-decoration-thickness: 1px; }
   .member__pic img { min-height: 0; max-height: none; }
   .gallery__grid { grid-template-columns: repeat(3, 1fr); }
   .gallery__item--big { grid-column: span 2; grid-row: span 2; }
-  .promo__inner { flex-direction: column; align-items: flex-start; gap: 20px; }
-  /* в колоночной раскладке flex-basis задаёт высоту — отсюда было пустое место */
-  .promo__text { flex: 0 0 auto; }
+  .promo__grid { grid-template-columns: 1fr; }
+  .promo__foot { flex-direction: column; align-items: flex-start; gap: 18px; }
   .tech-prices { grid-template-columns: 1fr; gap: 18px; }
   .tech-prices__list { grid-template-columns: 1fr; }
-  .promo__badge { flex-direction: row; gap: 12px; min-width: 0; }
-  .promo__num { font-size: 32px; }
   .map__head { flex-direction: column; align-items: flex-start; gap: 16px; }
   /* bento на 2 колонках: фото в одну колонку, широкие карточки — на две */
   .bento__card--pic { grid-column: span 1; grid-row: auto; }
