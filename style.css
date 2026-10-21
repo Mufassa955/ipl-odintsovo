@@ -125,6 +125,14 @@ s { text-decoration-thickness: 1px; }
   border-bottom: 1px solid var(--line);
 }
 .head__in { display: flex; align-items: center; gap: 26px; min-height: 92px; }
+.brand { flex: 0 0 auto; }
+.nav {
+  display: flex; gap: 26px; margin: 0 auto;
+  font-size: 14.5px; color: var(--ink-2);
+}
+.nav a { transition: color .18s ease; white-space: nowrap; }
+.nav a:hover { color: var(--gold); }
+.head__phones { margin-left: auto; }
 
 .brand { display: flex; align-items: center; gap: 12px; }
 /* ---------- Лейбл кабинета как графический элемент ---------- */
@@ -161,10 +169,10 @@ s { text-decoration-thickness: 1px; }
 }
 .brand__sub { display: block; font: 600 10px/1.4 var(--font-body); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--muted); }
 
-.nav { display: flex; gap: 26px; margin-left: auto; font-size: 14.5px; color: var(--ink-2); }
-.nav a { transition: color .18s ease; }
+.nav { display: flex; gap: 26px; margin: 0 auto; font-size: 14.5px; color: var(--ink-2); }
+.nav a { transition: color .18s ease; white-space: nowrap; }
 .nav a:hover { color: var(--gold); }
-.head__phones { display: flex; flex-direction: column; gap: 3px; text-align: right; }
+.head__phones { display: flex; flex-direction: column; gap: 3px; text-align: right; margin-left: auto; }
 .head__phones a { font: 600 15px/1.25 var(--font-body); white-space: nowrap; }
 .head__phones a + a { font-size: 13.5px; color: var(--muted); font-weight: 500; }
 .head__phones a:hover { color: var(--gold); }
@@ -778,10 +786,11 @@ s { text-decoration-thickness: 1px; }
   width: clamp(220px, 27vw, 430px); height: auto; opacity: .05;
 }
 .footer__label {
-  right: 1%; bottom: -2%;
+  right: 0; bottom: 0;
+  width: clamp(150px, 19vw, 300px); height: auto; line-height: 0;
 }
 .footer__label img {
-  width: clamp(170px, 19vw, 300px); height: auto; opacity: .07;
+  width: 100%; height: auto; opacity: .07;
   mix-blend-mode: screen;
 }
 .hero__grid, .footer__grid, .footer__bottom { position: relative; z-index: 1; }
@@ -821,15 +830,43 @@ s { text-decoration-thickness: 1px; }
   50% { transform: translateX(4px); }
 }
 
-/* Плавающие кнопки связи — появление с задержкой */
-.fab__btn { animation: fabIn .6s cubic-bezier(.22, .61, .36, 1) backwards; }
-.fab__btn:nth-child(1) { animation-delay: .15s; }
-.fab__btn:nth-child(2) { animation-delay: .28s; }
-.fab__btn:nth-child(3) { animation-delay: .41s; }
+/* Плавающие кнопки связи — появление + призывающая анимация */
+.fab { position: fixed; right: 22px; bottom: 26px; z-index: 50; display: flex; flex-direction: column; gap: 12px; align-items: flex-end; }
+.fab__btn {
+  width: 54px; height: 54px; border-radius: 50%; display: grid; place-items: center;
+  color: #fff; box-shadow: 0 10px 26px rgba(43, 45, 38, .22);
+  transition: transform .2s ease;
+  animation: fabIn .6s cubic-bezier(.22, .61, .36, 1) backwards,
+             fabPulse 3.2s ease-in-out infinite;
+}
+.fab__btn:nth-of-type(1) { animation-delay: .15s, 1.4s; }
+.fab__btn:nth-of-type(2) { animation-delay: .28s, 1.9s; }
+.fab__btn:nth-of-type(3) { animation-delay: .41s, 2.4s; }
+.fab__btn:hover { transform: scale(1.1); animation-play-state: paused; }
+.fab__btn svg { width: 24px; height: 24px; }
 @keyframes fabIn {
   from { opacity: 0; transform: translateY(14px) scale(.9); }
   to { opacity: 1; transform: none; }
 }
+@keyframes fabPulse {
+  0%, 78%, 100% { transform: scale(1); }
+  85% { transform: scale(1.11); }
+  92% { transform: scale(.97); }
+}
+
+/* Призывающая подсказка рядом с кнопками */
+.fab__hint {
+  order: -1;
+  background: var(--card); border: 1px solid var(--line);
+  color: var(--ink-2); font-size: 13px; line-height: 1.45;
+  padding: 11px 15px; border-radius: 14px; max-width: 240px;
+  box-shadow: var(--shadow);
+  opacity: 0; transform: translateY(8px);
+  animation: hintIn .6s ease 3s forwards, hintOut .5s ease 13s forwards;
+  pointer-events: none;
+}
+@keyframes hintIn { to { opacity: 1; transform: none; } }
+@keyframes hintOut { to { opacity: 0; transform: translateY(-6px); } }
 
 /* Каскадное появление карточек INDIBA */
 .js .indiba .bento__card { animation: cardIn .7s cubic-bezier(.22, .61, .36, 1) backwards; }
@@ -933,13 +970,15 @@ s { text-decoration-thickness: 1px; }
   .gallery__grid { grid-template-columns: repeat(4, 1fr); }
   .bento { grid-template-columns: repeat(2, 1fr); }
   .zone-fav__grid { grid-template-columns: repeat(2, 1fr); }
+  /* телефоны в шапке уступают место навигации */
+  .head__phones { display: none; }
+  .head__in > .pill--sm { margin-left: auto; }
 }
 
 @media (max-width: 1000px) {
   .hero__grid, .booking__grid { grid-template-columns: 1fr; gap: 44px; }
   .plans__grid, .reviews__grid, .team__grid { grid-template-columns: 1fr; }
   .team__grid { grid-template-columns: 1fr 1fr; }
-  .nav, .head__phones { display: none; }
   .zones__top { padding-right: 0; }
   .member__pic img { min-height: 0; max-height: none; }
   .gallery__grid { grid-template-columns: repeat(3, 1fr); }
@@ -956,19 +995,8 @@ s { text-decoration-thickness: 1px; }
   .bento__card--wide, .bento__card--cta, .bento__card--prices { grid-column: span 2; }
 }
 
-@media (max-width: 680px) {
-  body { font-size: 16px; }
-  .wrap { padding: 0 20px; }
-  .section { padding: 64px 0; scroll-margin-top: 90px; }
-  .section__title { margin-bottom: 30px; }
-
-  .head__in { min-height: 68px; gap: 12px; }
-  .brand__name { font-size: 24px; }
-  .brand__sub { font-size: 9px; }
-  .brand__mark { width: 34px; height: 34px; }
-  .burger { display: grid; }
-  .head__in .pill--sm { margin-left: auto; padding: 10px 16px; font-size: 14px; }
-
+/* Шапка: навигация уступает бургеру */
+@media (max-width: 980px) {
   .nav {
     display: none; position: absolute; top: 100%; left: 0; right: 0;
     flex-direction: column; gap: 0; margin: 0; padding: 10px 20px 18px;
@@ -977,6 +1005,32 @@ s { text-decoration-thickness: 1px; }
   .nav a { padding: 13px 0; font-size: 16px; border-bottom: 1px solid var(--line); }
   .nav a:last-child { border-bottom: none; }
   .nav-toggle:checked + .wrap .nav { display: flex; }
+  .burger { display: grid; }
+  .head__in > .pill--sm { margin-left: auto; }
+}
+
+/* Совсем узкие экраны: упрощаем шапку, чтобы ничего не вылезало */
+@media (max-width: 480px) {
+  .brand__latin, .brand__sub { display: none; }
+  .brand__name { font-size: 22px; }
+  .brand { gap: 9px; }
+  .head__in { gap: 10px; }
+  .head__in .pill--sm { padding: 9px 15px; font-size: 13.5px; }
+}
+
+@media (max-width: 680px) {
+  body { font-size: 16px; }
+  .wrap { padding: 0 20px; }
+  .section { padding: 64px 0; scroll-margin-top: 90px; }
+  .section__title { margin-bottom: 30px; }
+
+  .head__in { min-height: 68px; gap: 12px; }
+  .brand__name { font-size: 24px; }
+  .brand__latin { font-size: 16px; }
+  .brand__sub { font-size: 9px; }
+  .brand__mark { width: 34px; height: 34px; }
+  .burger { display: grid; }
+  .head__in .pill--sm { margin-left: auto; padding: 10px 16px; font-size: 14px; }
 
   .hero { padding: 44px 0 60px; }
   .hero .lead { font-size: 16.5px; }
