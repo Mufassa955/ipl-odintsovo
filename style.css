@@ -902,6 +902,34 @@ s { text-decoration-thickness: 1px; }
 .review .stars { transition: text-shadow .3s ease, color .3s ease; }
 .review:hover .stars { text-shadow: 0 0 14px rgba(217, 180, 95, .55); }
 
+/* ---------- Полоса цен под блоком технологии ---------- */
+.tech-prices {
+  margin-top: 24px;
+  background: var(--card); border: 1px solid var(--line);
+  border-left: 3px solid var(--gold);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 26px 28px;
+  display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 28px; align-items: start;
+}
+.tech-prices__title { font-family: var(--font-display); font-size: 19px; margin: 0 0 8px; }
+.tech-prices__note {
+  font: 600 12px/1.4 var(--font-body); letter-spacing: var(--track-label);
+  text-transform: uppercase; color: var(--gold); margin: 0;
+}
+.tech-prices__list {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 30px; margin: 0;
+}
+.tech-prices__list li {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 16px;
+  padding: 11px 0; border-bottom: 1px solid var(--line);
+  font-size: 15px; color: var(--ink-2);
+}
+.tech-prices__list b {
+  font-family: var(--font-display); font-size: 17px; font-weight: 500;
+  color: var(--ink); white-space: nowrap;
+}
+.tech-prices__list b s { color: var(--muted); font-size: 13px; margin-left: 6px; }
+
 /* ---------- Подвал ---------- */
 .footer { background: var(--olive); color: #cdd0c2; padding: 72px 0 30px; position: relative; overflow: hidden; }
 .footer__grid {
@@ -999,6 +1027,8 @@ s { text-decoration-thickness: 1px; }
   .promo__inner { flex-direction: column; align-items: flex-start; gap: 20px; }
   /* в колоночной раскладке flex-basis задаёт высоту — отсюда было пустое место */
   .promo__text { flex: 0 0 auto; }
+  .tech-prices { grid-template-columns: 1fr; gap: 18px; }
+  .tech-prices__list { grid-template-columns: 1fr; }
   .promo__badge { flex-direction: row; gap: 12px; min-width: 0; }
   .promo__num { font-size: 32px; }
   .map__head { flex-direction: column; align-items: flex-start; gap: 16px; }
