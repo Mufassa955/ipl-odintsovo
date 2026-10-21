@@ -973,6 +973,10 @@ s { text-decoration-thickness: 1px; }
   /* телефоны в шапке уступают место навигации */
   .head__phones { display: none; }
   .head__in > .pill--sm { margin-left: auto; }
+  /* на двух колонках фото занимает одну, широкие карточки — обе */
+  .bento__card--pic { grid-column: span 1; grid-row: span 2; }
+  .bento__card--pic .blob-2 { min-height: 0; aspect-ratio: 4 / 5; }
+  .bento__card--wide, .bento__card--cta, .bento__card--prices { grid-column: span 2; }
 }
 
 @media (max-width: 1000px) {
