@@ -124,7 +124,7 @@ s { text-decoration-thickness: 1px; }
   backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--line);
 }
-.head__in { display: flex; align-items: center; gap: 26px; min-height: 84px; }
+.head__in { display: flex; align-items: center; gap: 26px; min-height: 92px; }
 
 .brand { display: flex; align-items: center; gap: 12px; }
 /* ---------- Лейбл кабинета как графический элемент ---------- */
@@ -155,7 +155,11 @@ s { text-decoration-thickness: 1px; }
   border-radius: 50%;
 }
 .brand__name { display: block; font-family: var(--font-display); font-size: 30px; letter-spacing: .14em; line-height: 1; }
-.brand__sub { display: block; font: 600 10px/1.4 var(--font-body); letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+.brand__latin {
+  display: block; font-family: var(--font-script); font-size: 18px; line-height: 1.1;
+  color: var(--gold); letter-spacing: .03em; margin: 1px 0 3px;
+}
+.brand__sub { display: block; font: 600 10px/1.4 var(--font-body); letter-spacing: var(--track-label); text-transform: uppercase; color: var(--muted); }
 
 .nav { display: flex; gap: 26px; margin-left: auto; font-size: 14.5px; color: var(--ink-2); }
 .nav a { transition: color .18s ease; }
@@ -762,41 +766,44 @@ s { text-decoration-thickness: 1px; }
   opacity: 1 !important; transform: none !important; animation: none !important;
 }
 
-/* ---------- Водяной знак — логотип кабинета ---------- */
+/* ---------- Водяной знак — часть фона, а не отдельный элемент ---------- */
 .hero__label, .footer__label {
   position: absolute; z-index: 0; pointer-events: none; user-select: none;
-  line-height: 0;
+  line-height: 0; mix-blend-mode: multiply;
 }
 .hero__label {
-  left: 50%; top: 50%; transform: translate(-50%, -50%);
+  right: 3%; bottom: 4%;
 }
 .hero__label img {
-  width: clamp(280px, 32vw, 520px); height: auto; opacity: .055;
+  width: clamp(220px, 27vw, 430px); height: auto; opacity: .05;
 }
 .footer__label {
   right: 1%; bottom: -2%;
 }
 .footer__label img {
-  width: clamp(180px, 20vw, 320px); height: auto; opacity: .09;
+  width: clamp(170px, 19vw, 300px); height: auto; opacity: .07;
+  mix-blend-mode: screen;
 }
 .hero__grid, .footer__grid, .footer__bottom { position: relative; z-index: 1; }
 
-/* Логотип-марка в шапке */
+/* Круглый лейбл кабинета — в шапке и в подвале, без изменений */
 .brand__mark {
-  width: 42px; height: 42px; border-radius: 50%;
-  display: grid; place-items: center; overflow: hidden; flex-shrink: 0;
-  background: var(--bg-2); border: 1px solid var(--line);
+  width: 40px; height: 40px; border-radius: 50%;
+  background: var(--olive) var(--label) center/cover no-repeat;
+  border: 1px solid rgba(70, 72, 39, .3);
+  display: grid; place-items: center; font-size: 15px; color: var(--gold-2);
+  overflow: hidden; position: relative; flex-shrink: 0;
 }
-.brand__mark img { width: 78%; height: 78%; object-fit: contain; }
-
-/* Логотип-марка в подвале */
+.brand__mark::after {
+  content: ""; position: absolute; inset: 0;
+  background: var(--olive); opacity: .55; mix-blend-mode: multiply;
+}
 .footer__mark-img {
-  width: 62px; height: 62px; flex-shrink: 0;
-  display: grid; place-items: center; overflow: hidden;
-  border-radius: 50%; background: rgba(241, 239, 232, .06);
-  border: 1px solid rgba(241, 239, 232, .18);
+  width: 62px; height: 62px; flex-shrink: 0; border-radius: 50%;
+  background: var(--label) center/cover no-repeat;
+  border: 1px solid rgba(241, 239, 232, .2);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, .25);
 }
-.footer__mark-img img { width: 76%; height: 76%; object-fit: contain; }
 
 /* ---------- Анимации: акценты и микро-движение ---------- */
 
