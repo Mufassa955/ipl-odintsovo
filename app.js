@@ -10,6 +10,11 @@
 
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  // Режим статичного рендера: ?static=1 — без анимаций (для скриншотов, PDF, печати)
+  if (location.search.indexOf('static=1') !== -1) {
+    document.documentElement.classList.add('static');
+  }
+
   /* ---------- 1. Появление блоков ---------- */
   var targets = document.querySelectorAll('main .section, .map');
   if (targets.length) {
