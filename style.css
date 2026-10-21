@@ -630,4 +630,9 @@ s { text-decoration-thickness: 1px; }
 @media print {
   .fab, .head, .marquee, .form { display: none !important; }
   body { background: #fff; }
+  /* печать и сохранение в PDF не должны зависеть от анимации появления */
+  .js .reveal { opacity: 1 !important; transform: none !important; }
+  .js .gallery .gallery__item { opacity: 1 !important; transform: none !important; }
+  .faq__a { max-height: none !important; }
+  .faq__a-inner { opacity: 1 !important; transform: none !important; }
 }
