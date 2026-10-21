@@ -558,7 +558,7 @@ s { text-decoration-thickness: 1px; }
 
 /* ---------- Галерея: раскрытие по клику ---------- */
 .gallery__grid {
-  display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px;
   grid-auto-flow: dense;   /* не оставляем пустот при раскрытии фото */
   transition: gap .4s ease;
 }
@@ -839,6 +839,19 @@ s { text-decoration-thickness: 1px; }
 }
 .hero__grid, .footer__grid, .footer__bottom { position: relative; z-index: 1; }
 
+/* Бейдж «−10% за друга» у фото в hero */
+.hero__referral {
+  position: absolute; top: 16px; left: 0; z-index: 3;
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 10px 16px 10px 12px; border-radius: 999px;
+  background: var(--card); border: 1px solid var(--line);
+  box-shadow: var(--shadow-sm);
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+.hero__referral:hover { transform: translateY(-3px); box-shadow: var(--shadow); border-color: var(--gold); }
+.hero__referral-badge { font-family: var(--font-display); font-size: 22px; line-height: 1; color: var(--olive-2); }
+.hero__referral-text { font-size: 13.5px; color: var(--ink-2); white-space: nowrap; }
+
 /* Круглый лейбл кабинета — в шапке и в подвале, без изменений */
 .brand__mark {
   width: 40px; height: 40px; border-radius: 50%;
@@ -1047,7 +1060,7 @@ s { text-decoration-thickness: 1px; }
    ============================================================ */
 @media (max-width: 1180px) {
   .zones__grid { grid-template-columns: repeat(3, 1fr); }
-  .gallery__grid { grid-template-columns: repeat(4, 1fr); }
+  .gallery__grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
   .bento { grid-template-columns: repeat(2, 1fr); }
   .zone-fav__grid { grid-template-columns: repeat(2, 1fr); }
   /* телефоны в шапке уступают место навигации */
@@ -1065,8 +1078,7 @@ s { text-decoration-thickness: 1px; }
   .team__grid { grid-template-columns: 1fr 1fr; }
   .zones__top { padding-right: 0; }
   .member__pic img { min-height: 0; max-height: none; }
-  .gallery__grid { grid-template-columns: repeat(3, 1fr); }
-  .gallery__item--big { grid-column: span 2; grid-row: span 2; }
+  .gallery__grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
   .promo__grid { grid-template-columns: 1fr; }
   .promo__foot { flex-direction: column; align-items: flex-start; gap: 18px; }
   .tech-prices { grid-template-columns: 1fr; gap: 18px; }
@@ -1131,9 +1143,7 @@ s { text-decoration-thickness: 1px; }
   .plan, .member, .form { padding: 26px 22px; }
   .plan__note { min-height: 0; }
   .gallery__grid { grid-template-columns: 1fr 1fr; }
-  .gallery__item--big { grid-column: span 2; grid-row: auto; aspect-ratio: 4 / 3; min-height: 0; }
   .gallery__item { border-radius: 14px; }
-  .gallery__item--big { border-radius: 20px; }
   .gallery__cap { opacity: 1; transform: none; left: 12px; right: 12px; bottom: 10px; }
   .gallery__cap-title { font-size: 15px; }
   .gallery__cap-note { display: none; }
