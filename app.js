@@ -49,7 +49,45 @@
     });
   });
 
-  /* ---------- 3. Якоря с учётом липкой шапки ---------- */
+  /* ---------- 3. Галерея: раскрытие фото по клику ---------- */
+  var grid = document.getElementById('galleryGrid');
+  if (grid) {
+    var items = Array.prototype.slice.call(grid.querySelectorAll('.gallery__item'));
+
+    function closeAll() {
+      items.forEach(function (it) {
+        it.classList.remove('open');
+        it.setAttribute('aria-expanded', 'false');
+      });
+    }
+
+    function toggle(item) {
+      var wasOpen = item.classList.contains('open');
+      closeAll();
+      if (!wasOpen) {
+        item.classList.add('open');
+        item.setAttribute('aria-expanded', 'true');
+      }
+    }
+
+    items.forEach(function (item) {
+      item.addEventListener('click', function () { toggle(item); });
+      item.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter' || event.key === ' ' || event.key === 'Spacebar') {
+          event.preventDefault();
+          toggle(item);
+        }
+        if (event.key === 'Escape') closeAll();
+      });
+    });
+
+    // Клик вне галереи сворачивает раскрытое фото
+    document.addEventListener('click', function (event) {
+      if (!grid.contains(event.target)) closeAll();
+    });
+  }
+
+  /* ---------- 4. Якоря с учётом липкой шапки ---------- */
   var header = document.querySelector('.head');
   var links = Array.prototype.slice.call(document.querySelectorAll('a[href^="#"]'));
 
