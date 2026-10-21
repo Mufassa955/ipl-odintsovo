@@ -13,7 +13,7 @@
   <link rel="preload" href="assets/fonts/playfair-display-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/inter-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/fonts/fonts.css?v=6">
+  <link rel="stylesheet" href="assets/fonts/fonts.css?v=7">
 
   <meta property="og:type" content="website">
   <meta property="og:locale" content="ru_RU">
@@ -202,7 +202,7 @@
 }
   </script>
 
-  <link rel="stylesheet" href="style.css?v=6">
+  <link rel="stylesheet" href="style.css?v=7">
 </head>
 <body>
 
@@ -223,7 +223,9 @@
     <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Открыть меню">
     <div class="wrap head__in">
       <a class="brand" href="#top">
-        <span class="brand__mark" aria-hidden="true">✦</span>
+        <span class="brand__mark" aria-hidden="true">
+          <img src="assets/img/logo-ink.webp" alt="" width="512" height="512">
+        </span>
         <span class="brand__text">
           <span class="brand__name">IPL</span>
           <span class="brand__sub">Одинцово · БЦ Телеграф</span>
@@ -261,7 +263,9 @@
   <main id="main">
 
     <section class="hero" id="top">
-      <div class="hero__label" aria-hidden="true">IPL</div>
+      <div class="hero__label" aria-hidden="true">
+        <img src="assets/img/logo-ink.webp" alt="" width="512" height="512">
+      </div>
       <div class="wrap hero__grid">
         <div class="hero__text">
           <p class="kicker">Студия лазерной эпиляции · Одинцово</p>
@@ -889,8 +893,8 @@
           </div>
           <div class="map__frame">
             <iframe
-              src="https://yandex.ru/map-widget/v1/?oid=90123463608"
-              title="Яндекс.Карта: кабинет IPL в Одинцово, Можайское шоссе, 20"
+              src="https://yandex.ru/map-widget/v1/?ll=37.277413%2C55.674347&z=16&mode=routes&rtext=~55.674347%2C37.277413&text=%D0%9E%D0%B4%D0%B8%D0%BD%D1%86%D0%BE%D0%B2%D0%BE%2C%20%D0%9C%D0%BE%D0%B6%D0%B0%D0%B9%D1%81%D0%BA%D0%BE%D0%B5%20%D1%88%D0%BE%D1%81%D1%81%D0%B5%2C%2020%2C%20%D0%91%D0%A6%20%C2%AB%D0%A2%D0%B5%D0%BB%D0%B5%D0%B3%D1%80%D0%B0%D1%84%C2%BB"
+              title="Яндекс.Карта: кабинет IPL в Одинцове, Можайское шоссе, 20, БЦ «Телеграф», 2 этаж, каб. 206"
               width="100%" height="420" frameborder="0" allowfullscreen loading="lazy"></iframe>
           </div>
         </div>
@@ -900,15 +904,20 @@
   </main>
 
   <footer class="footer">
-    <div class="footer__label" aria-hidden="true">IPL</div>
+    <div class="footer__label" aria-hidden="true">
+      <img src="assets/img/logo-white.webp" alt="" width="512" height="512">
+    </div>
     <div class="wrap">
       <div class="footer__grid">
 
         <div class="footer__brand-col">
           <div class="footer__mark">
-            <span class="footer__mark-img" aria-hidden="true"></span>
+            <span class="footer__mark-img" aria-hidden="true">
+              <img src="assets/img/logo-white.webp" alt="" width="512" height="512">
+            </span>
             <span class="footer__mark-text">
               <b class="footer__name">IPL</b>
+              <span class="footer__latin">esthetic beauty studio</span>
               <span class="footer__tagline">Студия лазерной эпиляции<br>и эстетической косметологии</span>
             </span>
           </div>
@@ -922,13 +931,9 @@
             <a href="https://wa.me/message/I47FFEBZUZ3HM1" rel="noopener" aria-label="WhatsApp: +7 993 266-63-66">
               <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Zm5.8 14.2c-.2.7-1.3 1.3-1.8 1.3-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.5-.6a13 13 0 0 1-4.3-3.8c-.3-.5-.8-1.3-.8-2.2s.6-1.4.8-1.6c.2-.2.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2 0 .4-.1.6l-.4.5c-.1.2-.3.3-.1.6a9 9 0 0 0 3.9 3.3c.3.1.5.1.7-.1l.9-1.1c.2-.2.4-.2.6-.1l1.9.9c.2.1.4.2.4.3.1.1.1.6-.1 1.1Z"/></svg>
             </a>
-            <a href="https://yandex.ru/maps/org/90123463608/" rel="noopener" aria-label="Яндекс.Карты: +7 993 266-63-66">
+            <a href="https://yandex.ru/maps/org/90123463608/" rel="noopener" aria-label="Яндекс.Карты">
               <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"/></svg>
             </a>
-            <span class="footer__social-note">
-              <a href="tel:+79932666366">+7 993 266-63-66</a>
-              <a href="tel:+79253266196">+7 925 326-61-96</a>
-            </span>
           </div>
         </div>
 
