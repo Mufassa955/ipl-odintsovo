@@ -7,9 +7,9 @@
   <meta name="description" content="Лазерная эпиляция в Одинцове: IPL-аппарат 1S PRO, электроэпиляция МИКРОТЕРМ 5М, INDIBA. −20% на первый комплекс. БЦ «Телеграф», 5 минут от МЦК.">
   <link rel="canonical" href="https://mufassa955.github.io/ipl-odintsovo/">
 
-  <link rel="icon" href="favicon.ico" sizes="32x32">
-  <link rel="icon" href="assets/icons/icon-192.png" type="image/png" sizes="192x192">
-  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="icon" href="favicon.ico?v=2" sizes="32x32">
+  <link rel="icon" href="assets/icons/icon-192.png?v=2" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png?v=2">
   <link rel="manifest" href="site.webmanifest">
 
   <link rel="preload" href="assets/fonts/playfair-display-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
@@ -215,7 +215,7 @@
 }
   </script>
 
-  <link rel="stylesheet" href="style.css?v=30">
+  <link rel="stylesheet" href="style.css?v=32">
 </head>
 <body>
 
@@ -247,7 +247,6 @@
       </a>
       <nav class="nav" aria-label="Основная навигация">
         <a href="#laser">1S PRO</a>
-        <a href="#plans">Комплексы</a>
         <a href="#indiba">INDIBA</a>
         <a href="#microterm">Электроэпиляция</a>
         <a href="#zones">Прайс</a>
@@ -443,14 +442,11 @@
             по зонам — после консультации со специалистом.
           </p>
         </div>
-      </div>
-    </section>
 
-    <section class="section plans" id="plans">
-      <div class="wrap">
-        <p class="kicker">Комплексы на лазере 1S PRO</p>
-        <h2 class="section__title">Три формата — один результат</h2>
-        <div class="plans__grid">
+        <div class="plans" id="plans">
+          <p class="plans__kicker">Комплексы на лазере 1S PRO</p>
+          <h3 class="plans__title">Три формата — один результат</h3>
+          <div class="plans__grid">
 
           <article class="plan plan--top">
             <p class="plan__tag">Максимум</p>
@@ -479,9 +475,11 @@
             <a class="pill pill--ghost" href="#booking">Записаться</a>
           </article>
 
+          </div>
         </div>
       </div>
     </section>
+
 
     <section class="section indiba" id="indiba">
       <div class="wrap">
@@ -1057,9 +1055,9 @@
             <a href="tel:+79253266196">+7 925 326-61-96</a>
           </div>
           <div class="booking__acts">
-            <a class="pill" href="https://wa.me/message/I47FFEBZUZ3HM1" rel="noopener">Написать в WhatsApp</a>
+            <a class="pill pill--outline" href="https://wa.me/message/I47FFEBZUZ3HM1" rel="noopener">Написать в WhatsApp</a>
             <a class="pill pill--outline" href="https://t.me/iplstudioo" rel="noopener">Написать в Telegram</a>
-            <a class="pill pill--phone" href="tel:+79253266196">Позвонить</a>
+            <a class="pill pill--outline" href="tel:+79253266196">Позвонить</a>
           </div>
           <ul class="booking__list">
             <li>Парковка и лифт в БЦ</li>
@@ -1095,6 +1093,7 @@
             <textarea id="f-comment" name="Комментарий" rows="3" placeholder="Например: первый раз, чувствительная кожа"></textarea>
           </div>
           <button class="pill pill--block" type="submit">Отправить заявку</button>
+          <p class="form__route">Заявка приходит прямо в студию — отвечаем в течение 15 минут, ежедневно с 10:00 до 22:00.</p>
           <p class="form__status" role="status" aria-live="polite"></p>
           <p class="form__note">Нажимая кнопку, вы принимаете условия <a href="offer.html">публичной оферты</a>
             и соглашаетесь на <a href="privacy.html">обработку персональных данных</a>.</p>
@@ -1183,7 +1182,7 @@
     </div>
   </footer>
 
-  <script src="app.js?v=2" defer></script>
+  <script src="app.js?v=3" defer></script>
   <script src="telegram.js?v=1" defer></script>
 </body>
 </html>

@@ -97,11 +97,6 @@ s { text-decoration-thickness: 1px; }
 /* Кнопки связи в блоке записи */
 .pill--outline { background: transparent; color: var(--olive); border-color: var(--olive); }
 .pill--outline:hover { background: var(--olive); color: #f4f1ea; }
-.pill--phone {
-  background: transparent; color: var(--olive); border-color: var(--olive);
-  font-weight: 500; font-size: 15px; letter-spacing: 0;
-}
-.pill--phone:hover { background: var(--olive); color: #f4f1ea; }
 .pill:hover { background: var(--olive-2); transform: translateY(-2px); box-shadow: var(--shadow); }
 .pill--ghost { background: transparent; color: var(--ink); border-color: var(--line); }
 .pill--ghost:hover { background: var(--card); color: var(--ink); }
@@ -291,7 +286,16 @@ s { text-decoration-thickness: 1px; }
 /* Сноска под ценами */
 .tech-prices__fine { grid-column: 1 / -1; margin: 14px 0 0; font-size: 12.5px; color: var(--muted); }
 /* ---------- Комплексы ---------- */
-.plans { background: var(--bg-2); }
+/* Комплексы — часть блока 1S PRO: без отдельного фона и заголовка секции */
+.plans { margin-top: 56px; scroll-margin-top: 110px; }
+.plans__kicker {
+  font: 600 12px/1 var(--font-body); letter-spacing: .2em; text-transform: uppercase;
+  color: var(--muted); margin: 0 0 14px;
+}
+.plans__title {
+  font-family: var(--font-display); font-size: clamp(26px, 2.6vw, 34px);
+  font-weight: 500; color: var(--ink); margin: 0 0 34px;
+}
 .plans__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
 .plan {
   background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
@@ -705,6 +709,13 @@ s { text-decoration-thickness: 1px; }
   box-shadow: 0 0 0 3px rgba(82, 95, 69, .14);
 }
 .form__note { margin-top: 14px; font-size: 12.5px; color: var(--muted); text-align: center; }
+
+/* Куда уходит заявка — короткая строка под кнопкой */
+.form__route {
+  margin: 0 0 14px; padding: 11px 14px; text-align: center;
+  background: var(--bg-2); border: 1px solid var(--line); border-radius: var(--radius-sm);
+  font-size: 13px; line-height: 1.5; color: var(--ink-2);
+}
 
 /* Статус отправки заявки (Telegram) */
 .form__status {

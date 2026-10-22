@@ -27,6 +27,7 @@
   if (!form) return;
 
   var status = form.querySelector('.form__status');
+  var route = form.querySelector('.form__route');
   var button = form.querySelector('button[type="submit"]');
   var buttonText = button ? button.textContent : '';
 
@@ -61,11 +62,15 @@
     return lines.join('\n');
   }
 
+  // Когда токен вписан — честно говорим посетителю, куда ушла заявка
+  if (telegramReady() && route) {
+    route.textContent = 'Заявка уходит прямо в Telegram студии — отвечаем в течение 15 минут, ежедневно с 10:00 до 22:00.';
+  }
+
   form.addEventListener('submit', function (event) {
     if (!telegramReady()) return;   // токена нет — отдаём форму как обычный mailto:
 
     event.preventDefault();
-
     var name = fieldValue('f-name');
     var phone = fieldValue('f-phone');
     if (!name || !phone) {

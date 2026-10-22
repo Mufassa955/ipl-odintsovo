@@ -120,9 +120,10 @@
 
     function digitsOf(value) {
       var d = value.replace(/\D/g, '');
-      // 8 в начале → 7, затем отбрасываем 7 префикса (+7)
-      if (d.charAt(0) === '8') d = '7' + d.slice(1);
-      if (d.charAt(0) === '7') d = d.slice(1);
+      // наш собственный префикс «+7 » — убираем, чтобы он не считался цифрой номера
+      if (/^\s*\+?\s*7/.test(value)) d = d.replace(/^7/, '');
+      // 11 цифр с восьмёркой или семёркой — это 8/7 + десятизначный номер: первую убираем
+      if (d.length === 11 && (d.charAt(0) === '8' || d.charAt(0) === '7')) d = d.slice(1);
       return d;
     }
 
@@ -139,20 +140,34 @@
       return out;
     }
 
+    /* Сколько цифр пользователя стоит левее каретки (без префикса «+7»).
+       Именно эта величина нужна, чтобы после пересборки значения поставить
+       каретку на то же место: иначе цифры перетасовываются
+       («9161234567» превращалось в «+7 1769123456»). */
+    function digitsBeforeCaret(value, pos) {
+      var digits = value.slice(0, pos).replace(/\D/g, '');
+      if (/^\s*\+?\s*7/.test(value)) digits = digits.replace(/^7/, '');   // префикс +7 не считаем
+      return digits.length;
+    }
+
     // При фокусе: убираем скобки и дефисы, чтобы можно было свободно править текст
     phone.addEventListener('focus', function () {
       var d = digitsOf(phone.value).slice(0, MAX_DIGITS);
       phone.value = rawForm(d) || '+7 ';
+      var end = phone.value.length;
+      try { phone.setSelectionRange(end, end); } catch (e) { /* нет поддержки */ }
     });
 
     // Во время набора: только цифры, форматирование не трогаем
     phone.addEventListener('input', function () {
+      var before = digitsBeforeCaret(phone.value, phone.selectionStart || 0);
       var d = digitsOf(phone.value).slice(0, MAX_DIGITS);
       var next = rawForm(d);
       if (next !== phone.value) {
-        var pos = phone.selectionStart;
         phone.value = next;
-        // каретка остаётся на прежней позиции, если правка была в середине
+        // каретка — после той же цифры: префикс «+7 » занимает три символа
+        var pos = 3 + before;
+        if (pos > next.length) pos = next.length;
         try { phone.setSelectionRange(pos, pos); } catch (e) { /* нет поддержки */ }
       }
     });

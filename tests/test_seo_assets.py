@@ -20,10 +20,12 @@ def test_icons_exist():
 def test_icons_referenced_on_every_page():
     for page in PAGES:
         html = read(page)
-        assert 'href="favicon.ico"' in html, f"{page}: нет favicon.ico"
-        assert 'href="apple-touch-icon.png"' in html, f"{page}: нет apple-touch-icon"
+        assert 'href="favicon.ico' in html, f"{page}: нет favicon.ico"
+        assert 'href="apple-touch-icon.png' in html, f"{page}: нет apple-touch-icon"
         assert 'href="site.webmanifest"' in html, f"{page}: нет манифеста"
         assert 'favicon.svg' not in html, f"{page}: осталась ссылка на старую иконку"
+        # версия в ссылке обязательна — иначе браузер месяцами держит старую иконку
+        assert 'favicon.ico?v=' in html, f"{page}: у favicon.ico нет версии — браузер не обновит иконку"
 
 
 def test_manifest_is_valid_json():
