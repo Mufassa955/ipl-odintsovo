@@ -321,7 +321,11 @@ s { text-decoration-thickness: 1px; }
   border-radius: var(--radius);
   padding: 20px 26px;
 }
-.promo__referral-badge { font-family: var(--font-display); font-size: 27px; line-height: 1; color: var(--gold-2); flex-shrink: 0; }
+.promo__referral-badge {
+  display: inline-block; font-family: var(--font-display); font-size: 32px;
+  line-height: 1; color: var(--gold-2); flex-shrink: 0;
+  animation: breathe 5.5s ease-in-out infinite;
+}
 .promo__referral-text { font-size: 15px; line-height: 1.6; color: #e2dfd4; margin: 0; max-width: 82ch; }
 .promo__referral-text b { color: #f7f4ea; }
 
@@ -525,6 +529,7 @@ s { text-decoration-thickness: 1px; }
 }
 
 /* Прайс INDIBA */
+.bento__card--wide { grid-column: span 2; }
 .bento__card--prices { grid-column: span 2; justify-content: flex-start; }
 .indiba__prices { display: grid; gap: 0; margin-top: 4px; }
 .indiba__prices li {
@@ -865,23 +870,6 @@ s { text-decoration-thickness: 1px; }
 .tech-modes__text { font-size: 15px; color: var(--ink-2); }
 
 /* ---------- Бейдж «−10%» у фото — единый стиль с блоком скидок ---------- */
-.hero__referral {
-  position: absolute; top: 14px; left: 0; z-index: 3;
-  display: inline-flex; align-items: center; gap: 12px;
-  padding: 12px 20px 12px 16px; border-radius: 999px;
-  background: var(--card); border: 1px solid var(--line);
-  box-shadow: var(--shadow-sm);
-  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
-}
-.hero__referral:hover { transform: translateY(-3px); box-shadow: var(--shadow); border-color: var(--gold); }
-.hero__referral-badge {
-  display: inline-block; font-family: var(--font-display); font-size: 32px;
-  line-height: 1; color: var(--gold);
-}
-.hero__referral-text {
-  font: 600 12px/1.4 var(--font-body); letter-spacing: var(--track-label);
-  text-transform: uppercase; color: var(--ink-2); white-space: nowrap;
-}
 
 /* Круглый лейбл кабинета — в шапке и в подвале, без изменений */
 .brand__mark {
@@ -1019,6 +1007,28 @@ s { text-decoration-thickness: 1px; }
 }
 .tech-prices__list b s { color: var(--muted); font-size: 13px; margin-left: 6px; }
 
+
+/* Три режима INDIBA — внутри карточки 05 */
+.bento__modes { display: grid; gap: 0; margin: 4px 0 0; }
+.bento__modes li {
+  display: grid; grid-template-columns: 150px 130px minmax(0, 1fr);
+  gap: 14px; align-items: baseline;
+  padding: 12px 0; border-bottom: 1px solid var(--line);
+}
+.bento__modes li:last-child { border-bottom: none; padding-bottom: 0; }
+.bento__modes b { font-family: var(--font-display); font-size: 17px; font-weight: 500; }
+.bento__mode-temp {
+  font: 600 12px/1.4 var(--font-body); letter-spacing: var(--track-label);
+  text-transform: uppercase; color: var(--gold);
+}
+.bento__mode-text { font-size: 14.5px; color: var(--ink-2); overflow-wrap: anywhere; }
+
+/* На узких экранах режимы идут в столбик */
+@media (max-width: 1000px) {
+  .bento__modes li { grid-template-columns: 1fr; gap: 3px; }
+  .bento__modes b { font-size: 16px; }
+}
+
 /* ---------- Подвал ---------- */
 .footer { background: var(--olive); color: #cdd0c2; padding: 72px 0 30px; position: relative; overflow: hidden; }
 .footer__grid {
@@ -1104,6 +1114,11 @@ s { text-decoration-thickness: 1px; }
   .bento__card--pic { grid-column: span 1; grid-row: span 2; }
   .bento__card--pic .blob-2 { min-height: 0; aspect-ratio: 4 / 5; }
   .bento__card--wide, .bento__card--cta, .bento__card--prices { grid-column: span 2; }
+}
+
+/* В одну колонку широкие карточки тоже должны быть в одну */
+@media (max-width: 680px) {
+  .bento__card--wide, .bento__card--cta, .bento__card--prices { grid-column: span 1; }
 }
 
 @media (max-width: 1000px) {
