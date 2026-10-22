@@ -839,18 +839,49 @@ s { text-decoration-thickness: 1px; }
 }
 .hero__grid, .footer__grid, .footer__bottom { position: relative; z-index: 1; }
 
-/* Бейдж «−10% за друга» у фото в hero */
+/* ---------- Блок «Три режима работы» (INDIBA) ---------- */
+.tech-modes {
+  margin-top: 24px;
+  background: var(--card); border: 1px solid var(--line);
+  border-left: 3px solid var(--gold);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 26px 28px;
+}
+.tech-modes__title {
+  font-family: var(--font-display); font-size: 20px; margin: 0 0 16px;
+}
+.tech-modes__list { display: grid; gap: 0; margin: 0; }
+.tech-modes__list li {
+  display: grid; grid-template-columns: 170px 150px minmax(0, 1fr);
+  gap: 18px; align-items: baseline;
+  padding: 13px 0; border-bottom: 1px solid var(--line);
+}
+.tech-modes__list li:last-child { border-bottom: none; }
+.tech-modes__list b { font-family: var(--font-display); font-size: 18px; font-weight: 500; }
+.tech-modes__temp {
+  font: 600 13px/1.4 var(--font-body); letter-spacing: var(--track-label);
+  text-transform: uppercase; color: var(--gold);
+}
+.tech-modes__text { font-size: 15px; color: var(--ink-2); }
+
+/* ---------- Бейдж «−10%» у фото — единый стиль с блоком скидок ---------- */
 .hero__referral {
-  position: absolute; top: 16px; left: 0; z-index: 3;
-  display: inline-flex; align-items: center; gap: 10px;
-  padding: 10px 16px 10px 12px; border-radius: 999px;
+  position: absolute; top: 14px; left: 0; z-index: 3;
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 12px 20px 12px 16px; border-radius: 999px;
   background: var(--card); border: 1px solid var(--line);
   box-shadow: var(--shadow-sm);
   transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
 }
 .hero__referral:hover { transform: translateY(-3px); box-shadow: var(--shadow); border-color: var(--gold); }
-.hero__referral-badge { font-family: var(--font-display); font-size: 22px; line-height: 1; color: var(--olive-2); }
-.hero__referral-text { font-size: 13.5px; color: var(--ink-2); white-space: nowrap; }
+.hero__referral-badge {
+  display: inline-block; font-family: var(--font-display); font-size: 32px;
+  line-height: 1; color: var(--gold);
+}
+.hero__referral-text {
+  font: 600 12px/1.4 var(--font-body); letter-spacing: var(--track-label);
+  text-transform: uppercase; color: var(--ink-2); white-space: nowrap;
+}
 
 /* Круглый лейбл кабинета — в шапке и в подвале, без изменений */
 .brand__mark {
@@ -978,11 +1009,13 @@ s { text-decoration-thickness: 1px; }
 .tech-prices__list li {
   display: flex; justify-content: space-between; align-items: baseline; gap: 16px;
   padding: 11px 0; border-bottom: 1px solid var(--line);
-  font-size: 15px; color: var(--ink-2);
+  font-size: 15px; color: var(--ink-2); flex-wrap: wrap;
 }
+.tech-prices__list li > span:first-child { min-width: 0; }
 .tech-prices__list b {
   font-family: var(--font-display); font-size: 17px; font-weight: 500;
-  color: var(--ink); white-space: nowrap;
+  color: var(--ink); white-space: normal; text-align: right;
+  overflow-wrap: break-word;
 }
 .tech-prices__list b s { color: var(--muted); font-size: 13px; margin-left: 6px; }
 
@@ -1059,6 +1092,7 @@ s { text-decoration-thickness: 1px; }
    Адаптив
    ============================================================ */
 @media (max-width: 1180px) {
+  .tech-prices { grid-template-columns: 1fr; gap: 16px; }
   .zones__grid { grid-template-columns: repeat(3, 1fr); }
   .gallery__grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
   .bento { grid-template-columns: repeat(2, 1fr); }
@@ -1083,6 +1117,9 @@ s { text-decoration-thickness: 1px; }
   .promo__foot { flex-direction: column; align-items: flex-start; gap: 18px; }
   .tech-prices { grid-template-columns: 1fr; gap: 18px; }
   .tech-prices__list { grid-template-columns: 1fr; }
+  .tech-modes { padding: 22px 20px; }
+  .tech-modes__list li { grid-template-columns: 1fr; gap: 4px; }
+  .tech-modes__text { font-size: 14.5px; }
   .map__head { flex-direction: column; align-items: flex-start; gap: 16px; }
   /* bento на 2 колонках: фото в одну колонку, широкие карточки — на две */
   .bento__card--pic { grid-column: span 1; grid-row: auto; }
