@@ -213,42 +213,9 @@ s { text-decoration-thickness: 1px; }
 .hero .lead { font-size: 17.5px; color: var(--ink-2); max-width: 48ch; margin: 0 0 30px; }
 .hero__acts { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 38px; }
 
-.stats { display: flex; gap: 40px; margin: 0; padding-top: 26px; border-top: 1px solid var(--line); flex-wrap: wrap; }
-.stats div { display: flex; flex-direction: column; }
-.stats dt { font-family: var(--font-display); font-size: 27px; }
-.stats dd { margin: 0; font-size: 13px; color: var(--muted); }
 
-/* Ссылка-рейтинг в статистике */
-.stats__link { display: inline-flex; align-items: baseline; gap: 9px; transition: color .2s ease; }
-.stats__link b { font-family: var(--font-display); font-size: 27px; font-weight: 500; }
-.stats__link:hover { color: var(--olive-2); }
-.stats__stars {
-  color: #d9b45f; font-size: 15px; letter-spacing: 2px; position: relative; top: -2px;
-  text-shadow: 0 1px 0 rgba(0, 0, 0, .06);
-}
 
 /* «Живая» кнопка на скидку */
-.stats__cta {
-  display: inline-flex; align-items: center; gap: 8px;
-  font-family: var(--font-display); font-size: 25px; color: var(--ink);
-  padding: 8px 20px; border-radius: 999px;
-  border: 1px solid var(--line); background: var(--card);
-  transition: background-color .22s ease, color .22s ease, border-color .22s ease, transform .22s ease, box-shadow .22s ease;
-}
-/* Обе акции — одинаковые белые карточки */
-.stats__cta--soft { background: var(--card); border-color: var(--line); font-size: 25px; padding: 8px 20px; }
-.stats__cta::after { content: "→"; font-family: var(--font-body); font-size: 17px; color: var(--gold); }
-.stats__cta--soft {
-  background: var(--bg-2); border-color: var(--line);
-  font-size: 20px; padding: 11px 18px;
-}
-.stats__cta--soft:hover { background: var(--olive-2); border-color: var(--olive-2); }
-
-.stats__cta:hover {
-  background: var(--olive); border-color: var(--olive); color: #f4f1ea;
-  transform: translateY(-2px); box-shadow: var(--shadow);
-}
-.stats__cta:hover::after { color: var(--gold-2); }
 
 .hero__pic { position: relative; padding: 0 0 64px 56px; }
 .hero__pic-main {
@@ -313,21 +280,6 @@ s { text-decoration-thickness: 1px; }
 .promo__card-title { font-family: var(--font-display); font-size: 19px; color: #f1efe8; margin: 0 0 10px; }
 .promo__card-text { font-size: 14.5px; line-height: 1.6; color: #b9bcaf; margin: 0; }
 
-/* Рекомендация — выгода для обеих сторон */
-.promo__referral {
-  margin-top: 16px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
-  background: rgba(217, 180, 95, .12);
-  border: 1px solid rgba(217, 180, 95, .34);
-  border-radius: var(--radius);
-  padding: 20px 26px;
-}
-.promo__referral-badge {
-  display: inline-block; font-family: var(--font-display); font-size: 32px;
-  line-height: 1; color: var(--gold-2); flex-shrink: 0;
-  animation: breathe 5.5s ease-in-out infinite;
-}
-.promo__referral-text { font-size: 15px; line-height: 1.6; color: #e2dfd4; margin: 0; max-width: 82ch; }
-.promo__referral-text b { color: #f7f4ea; }
 
 .promo__foot { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; margin-top: 24px; }
 .promo__note { flex: 1 1 320px; font-size: 14px; color: #c3c6ba; max-width: 76ch; margin: 0; }
@@ -817,7 +769,7 @@ s { text-decoration-thickness: 1px; }
   opacity: 1 !important; transform: none !important; animation: none !important;
 }
 .static .fab__btn, .static .zones__promo-badge,
-.static .footer__mark-img, .static .stats__cta::after { animation: none !important; }
+.static .footer__mark-img { animation: none !important; }
 .static .gallery .gallery__item,
 .static .indiba .bento__card {
   opacity: 1 !important; transform: none !important; animation: none !important;
@@ -900,7 +852,6 @@ s { text-decoration-thickness: 1px; }
 }
 
 /* Стрелка в «живой» кнопке скидки — подсказка действия */
-.stats__cta::after { animation: nudge 2.2s ease-in-out infinite; }
 @keyframes nudge {
   0%, 100% { transform: translateX(0); }
   50% { transform: translateX(4px); }
