@@ -144,7 +144,9 @@ SEO (title/description/canonical/og/twitter/manifest/h1/JSON-LD), Accessibility 
 
 ## Что осталось (следующие этапы)
 
-1. **Включить Telegram-форму.** Код готов (`telegram.js` + `docs/TELEGRAM-SETUP.md`), но ждёт **токен от @BotFather** и **id чата**. Пока они не вписаны — форма работает через `mailto:` (запасной вариант, ничего не ломается). Вписать: `telegram.js`, строки `TELEGRAM_BOT_TOKEN` и `TELEGRAM_CHAT_ID`.
+1. ✅ **Telegram-форма работает** (2026-10-22). Схема: браузер → Cloudflare Worker (`proxy/worker.js`) → Telegram Bot API. В коде страницы только адрес прокси `https://ipl-form.ipl-odintsovo.workers.dev`, токен и chat id лежат в секретах Cloudflare. Бот `@ipl_odintsovo_bot`, чат `1269588547`. Проверено на живом сайте: заявка доходит за 1–2 с, статус «Готово! Заявка отправлена». Детали и передеплой — `docs/TELEGRAM-SETUP.md`.
+   - ⚠️ В Cloudflare у воркера `ALLOWED_ORIGIN = https://mufassa955.github.io`. **После переезда на домен `ipl-odintsovo.ru` его нужно обновить**, иначе CORS заблокирует форму.
+   - `.secrets/` (токены бота и Cloudflare) в `.gitignore`, в git не попадает.
 2. **Домен `ipl-odintsovo.ru`** — CNAME на `mufassa955.github.io`, ~500–1500 ₽/год
 3. **Реквизиты** в `privacy.html` и `offer.html` — плейсхолдеры `[ЗАПОЛНИТЬ]`: ФИО/ИП, ИНН, ОГРНИП, e-mail. По ИНН можно найти остальное через egrul.nalog.ru
 4. **Скриншот-презентация** для защиты (страница целиком, `?static=1`)
