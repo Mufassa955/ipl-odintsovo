@@ -710,6 +710,16 @@ s { text-decoration-thickness: 1px; }
 }
 .form__note { margin-top: 14px; font-size: 12.5px; color: var(--muted); text-align: center; }
 
+/* Согласие под формой: обязательная отметка */
+.check {
+  display: flex; gap: 10px; align-items: flex-start;
+  margin: 2px 0 18px; font-size: 12.5px; line-height: 1.55;
+  color: var(--muted); text-align: left;
+}
+.check input { flex: 0 0 auto; width: 17px; height: 17px; margin: 2px 0 0; accent-color: var(--gold-ink); cursor: pointer; }
+.check a { color: var(--gold-ink); text-decoration: underline; text-underline-offset: 2px; }
+.check a:hover { color: var(--olive-2); }
+
 /* Статус отправки заявки (Telegram) */
 .form__status {
   display: none; margin: 0 0 16px; padding: 12px 15px;
@@ -773,6 +783,34 @@ s { text-decoration-thickness: 1px; }
 .legal__list { list-style: disc; padding-left: 24px; margin: 0 0 14px; }
 .legal__list li { font-size: 16px; color: var(--ink-2); margin-bottom: 8px; }
 .legal__back { margin-top: 44px; }
+
+/* Анкета для кабинета (заполняется на месте, пригодна для печати) */
+.anketa { margin-top: 8px; }
+.anketa__row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+.anketa label { display: block; font: 600 12.5px/1.3 var(--font-body); color: var(--muted); }
+.anketa input {
+  display: block; width: 100%; margin-top: 6px; padding: 9px 12px;
+  border: 1px solid var(--line); border-radius: 10px; background: #fff; font: inherit; color: var(--ink);
+}
+.anketa__title { font-size: 20px; margin: 30px 0 10px; }
+.anketa__hint { font-size: 14px; color: var(--muted); margin-bottom: 14px; }
+.anketa__list { list-style: none; padding: 0; margin: 0 0 14px; }
+.anketa__list li {
+  display: flex; justify-content: space-between; gap: 16px;
+  padding: 9px 0; border-bottom: 1px solid var(--line); font-size: 15px; color: var(--ink-2);
+}
+.anketa__list i { flex: 0 0 auto; font-style: normal; color: var(--muted); font-size: 13.5px; white-space: nowrap; }
+.anketa__sign { display: grid; grid-template-columns: 1.4fr .8fr 1.4fr; gap: 14px; margin-top: 26px; }
+
+@media (max-width: 680px) {
+  .anketa__row, .anketa__sign { grid-template-columns: 1fr; }
+}
+
+@media print {
+  .head, .footer, .legal__back, .skip { display: none !important; }
+  .anketa input { border: 0; border-bottom: 1px solid #000; border-radius: 0; padding-left: 0; }
+}
+
 
 /* Статичный режим: ?static=1 — всё видно сразу, без анимаций (скриншоты, PDF) */
 .static .reveal,

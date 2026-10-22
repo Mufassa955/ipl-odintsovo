@@ -148,7 +148,7 @@ SEO (title/description/canonical/og/twitter/manifest/h1/JSON-LD), Accessibility 
    - ⚠️ В Cloudflare у воркера `ALLOWED_ORIGIN = https://mufassa955.github.io`. **После переезда на домен `ipl-odintsovo.ru` его нужно обновить**, иначе CORS заблокирует форму.
    - `.secrets/` (токены бота и Cloudflare) в `.gitignore`, в git не попадает.
 2. **Домен `ipl-odintsovo.ru`** — CNAME на `mufassa955.github.io`, ~500–1500 ₽/год
-3. **Реквизиты** в `privacy.html` и `offer.html` — плейсхолдеры `[ЗАПОЛНИТЬ]`: ФИО/ИП, ИНН, ОГРНИП, e-mail. По ИНН можно найти остальное через egrul.nalog.ru
+3. **Юридический пакет** (2026-10-22): переписаны `offer.html` и `privacy.html`, добавлены `consent.html` (согласие на обработку ПД) и `anketa.html` (анкета здоровья + информированное согласие для кабинета, `noindex`). В форме появился обязательный чекбокс согласия. Внутренний чек-лист — `docs/LEGAL-TODO.md`. Осталось от владельца: реквизиты `[ЗАПОЛНИТЬ]`, уведомление РКН (обработка + трансграничная передача), решение по хостингу (локализация).
 4. **Скриншот-презентация** для защиты (страница целиком, `?static=1`)
 5. ✅ Lighthouse-аудит — сделан, отчёт в `tools/lighthouse_lite.js` (Performance 95 · SEO 100 · Accessibility 100)
 
