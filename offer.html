@@ -32,19 +32,27 @@
 <body>
 
   <header class="head">
+    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Открыть меню">
     <div class="wrap head__in">
       <a class="brand" href="index.html">
-        <span class="brand__mark" aria-hidden="true">✦</span>
+        <span class="brand__mark" aria-hidden="true"></span>
         <span class="brand__text">
           <span class="brand__name">IPL</span>
+          <span class="brand__latin">esthetic beauty studio</span>
           <span class="brand__sub">Одинцово · БЦ Телеграф</span>
         </span>
       </a>
-      <div class="head__phones">
-        <a href="tel:+79932666366">+7 993 266-63-66</a>
-        <a href="tel:+79253266196">+7 925 326-61-96</a>
-      </div>
+      <nav class="nav" aria-label="Основная навигация">
+        <a href="index.html#laser">1S PRO</a>
+        <a href="index.html#indiba">INDIBA</a>
+        <a href="index.html#microterm">Электроэпиляция</a>
+        <a href="index.html#zones">Прайс</a>
+        <a href="index.html#team">Мастера</a>
+        <a href="index.html#reviews">Отзывы</a>
+        <a href="index.html#faq">Вопросы</a>
+      </nav>
       <a class="pill pill--sm" href="index.html#booking">Записаться</a>
+      <label class="burger" for="nav-toggle" aria-hidden="true"><span></span></label>
     </div>
   </header>
 
@@ -178,25 +186,62 @@
   </main>
 
   <footer class="footer">
-    <div class="wrap footer__grid">
-      <div>
-        <p class="footer__brand">IPL</p>
-        <p class="footer__text">Студия лазерной эпиляции в Одинцово.<br>Лазер 1S PRO · МИКРОТЕРМ 5М · INDIBA</p>
-      </div>
-      <div>
-        <p class="footer__title">Контакты</p>
-        <p><a href="tel:+79932666366">+7 993 266-63-66</a></p>
-        <p><a href="tel:+79253266196">+7 925 326-61-96</a></p>
-      </div>
-      <div>
-        <p class="footer__title">Адрес</p>
-        <p>Московская обл., Одинцово,<br>Можайское шоссе, 20 · БЦ «Телеграф», 2 этаж, каб. 206</p>
-        <p>5 минут от МЦК «Одинцово» · ежедневно 10:00–22:00</p>
-      </div>
+    <div class="footer__label" aria-hidden="true">
+      <img src="assets/img/logo-white.webp" alt="" width="512" height="512">
     </div>
-    <div class="wrap footer__bottom">
-      <p>© 2026 IPL · Одинцово</p>
-      <p><a href="privacy.html">Политика конфиденциальности</a> · <a href="offer.html">Публичная оферта</a></p>
+    <div class="wrap">
+      <div class="footer__grid">
+
+        <div class="footer__brand-col">
+          <div class="footer__mark">
+            <span class="footer__mark-img" aria-hidden="true"></span>
+            <span class="footer__mark-text">
+              <b class="footer__name">IPL</b>
+              <span class="footer__latin">esthetic beauty studio</span>
+              <span class="footer__tagline">Студия лазерной эпиляции<br>и эстетической косметологии</span>
+            </span>
+          </div>
+          <div class="footer__social">
+            <a href="https://t.me/iplstudioo" rel="noopener" aria-label="Telegram: +7 993 266-63-66">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.9 4.3 18.7 19c-.2 1-.8 1.2-1.7.8l-4.6-3.4-2.2 2.2c-.2.2-.4.4-.9.4l.3-4.6L18 5.9c.3-.3-.1-.4-.5-.2L7.3 12.6l-4.3-1.3c-.9-.3-.9-.9.2-1.4l16.8-6.5c.8-.3 1.5.2 1.3.9Z"/></svg>
+            </a>
+            <a href="https://wa.me/message/I47FFEBZUZ3HM1" rel="noopener" aria-label="WhatsApp: +7 993 266-63-66">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+            </a>
+            <a href="https://yandex.ru/maps/org/90123463608/" rel="noopener" aria-label="Яндекс.Карты">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"/></svg>
+            </a>
+            <a href="tel:+79253266196" aria-label="Позвонить: +7 925 326-61-96">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.4 2.4.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1l-2.3 2.2Z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer__col">
+          <p class="footer__title">Запись и контакты</p>
+          <a class="footer__phone" href="tel:+79932666366">+7 993 266-63-66</a>
+          <a class="footer__phone" href="tel:+79253266196">+7 925 326-61-96</a>
+          <p class="footer__hours">Ежедневно с 10:00 до 22:00</p>
+          <a class="footer__link" href="index.html#booking">Записаться на консультацию →</a>
+        </div>
+
+        <div class="footer__col">
+          <p class="footer__title">Как нас найти</p>
+          <p class="footer__address">
+            Московская обл., г. Одинцово,<br>
+            Можайское шоссе, д. 20 (БЦ «Телеграф»)<br>
+            <b>каб. 206 (2 этаж)</b>
+          </p>
+          <p class="footer__hint">5 минут пешком от МЦК «Одинцово»</p>
+          <a class="footer__link" href="https://yandex.ru/maps/?ll=37.277413%2C55.674347&z=17&mode=routes&rtext=~55.674347%2C37.277413&text=%D0%9E%D0%B4%D0%B8%D0%BD%D1%86%D0%BE%D0%B2%D0%BE%2C%20%D0%9C%D0%BE%D0%B6%D0%B0%D0%B9%D1%81%D0%BA%D0%BE%D0%B5%20%D1%88%D0%BE%D1%81%D1%81%D0%B5%2C%2020" rel="noopener">Построить маршрут →</a>
+        </div>
+
+      </div>
+
+      <div class="footer__bottom">
+        <p>© 2026 IPL · Одинцово</p>
+        <p><a href="privacy.html">Политика конфиденциальности</a> · <a href="offer.html">Публичная оферта</a></p>
+      </div>
     </div>
   </footer>
 

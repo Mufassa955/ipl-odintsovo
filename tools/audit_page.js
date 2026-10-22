@@ -190,6 +190,8 @@
     /* 10. Пустые секции */
     var empty = [];
     Array.prototype.forEach.call(document.querySelectorAll('main section'), function (s) {
+      // текстовые блоки документов (оферта, политика) законно бывают короткими
+      if (s.classList.contains('legal__block')) return;
       if (s.getBoundingClientRect().height < 100) empty.push(s.id || s.className.slice(0, 24));
     });
     if (empty.length) report.errors.push('Пустые секции: ' + empty.join(', '));
