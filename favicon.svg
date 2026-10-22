@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="IPL в Одинцово">
-  <rect width="64" height="64" rx="14" fill="#23291d"/>
-  <path d="M32 12c1.8 7.2 6.8 12.2 14 14-7.2 1.8-12.2 6.8-14 14-1.8-7.2-6.8-12.2-14-14 7.2-1.8 12.2-6.8 14-14Z" fill="#d3b784"/>
-  <circle cx="32" cy="26" r="3.2" fill="#f2f4ec"/>
-  <path d="M18 46c5.2 0 9.4 4.2 9.4 9.4M46 46c-5.2 0-9.4 4.2-9.4 9.4" stroke="#62704f" stroke-width="2.6" stroke-linecap="round" fill="none" opacity=".7"/>
-</svg>

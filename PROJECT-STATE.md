@@ -65,12 +65,15 @@ Telegram `iplstudioo` · WhatsApp `wa.me/message/I47FFEBZUZ3HM1` · ВК `vk.ru/
 ## Инструменты проекта
 
 ```bash
-.venv/bin/python -m pytest tests/ -q            # 17 тестов
+.venv/bin/python -m pytest tests/ -q            # 30 тестов
 .venv/bin/python tools/photo_prep.py photos --out assets/img --max-width 1600 --tone olive
 .venv/bin/python tools/make_icons.py --out assets/icons
+.venv/bin/python tools/make_app_icons.py         # иконки вкладки, apple-touch, PWA, OG-картинка
+.venv/bin/python tools/make_responsive_images.py # адаптивные версии фото галереи + srcset
 .venv/bin/python tools/contact_sheet.py photos --out sheet.png
 .venv/bin/python tools/update_schema.py          # пересобирает JSON-LD из текста страницы
-# аудит вёрстки: открыть http://127.0.0.1:8000/_audit.html?w=375
+.venv/bin/python tools/check_html.py             # баланс тегов, дубли id, битые якоря
+# аудит вёрстки: открыть http://127.0.0.1:8777/_audit.html?w=375
 # статичный режим без анимаций: добавить ?static=1 к адресу
 ```
 
@@ -85,9 +88,36 @@ Telegram `iplstudioo` · WhatsApp `wa.me/message/I47FFEBZUZ3HM1` · ВК `vk.ru/
 **Сейчас: 0 ошибок, 0 предупреждений на всех 9 ширинах.**
 Перед каждой проверкой поднимать версию `style.css?v=N` — иначе аудит смотрит на закэшированный CSS (была причина ложных «проблем»).
 
+`tools/lighthouse_lite.js` — «Lighthouse» без установки (node/npm в системе нет).
+Загружается в страницу и отдаёт отчёт: Performance (FCP/LCP/CLS/TTFB/вес/блокирующие ресурсы/лишние картинки),
+SEO (title/description/canonical/og/twitter/manifest/h1/JSON-LD), Accessibility (контраст, alt, подписи полей, имена ссылок, порядок заголовков), Best practices (HTTPS, смешанное содержимое, target=_blank).
+В консоли браузера: `fetch('tools/lighthouse_lite.js').then(r=>r.text()).then(eval).then(()=>report)`.
+**Текущие оценки: Performance 95 · SEO 100 · Accessibility 100 · Best practices 80** (80 — только из-за http на localhost; на живом домене https → 100).
+
 `tools/check_html.py` — статическая проверка разметки (баланс тегов, дубли `id`, битые якоря).
 Запуск: `.venv/bin/python tools/check_html.py`. Есть тест `tests/test_html_structure.py`.
 **Правило: после правок разметки обязательно прогонять эту проверку** — лишний `</div>` роняет карточки из сетки и уводит блоки за пределы `.wrap` (визуально это выглядит как «съезжающие» блоки).
+
+### Иконки, манифест и картинка для соцсетей
+
+- `favicon.ico` — круглая наклейка с каллиграфией (16/32/48), генерируется из `assets/img/label.webp`.
+- `apple-touch-icon.png` и `assets/icons/icon-*.png` — **сплошное оливковое поле с каллиграфией** (без «круга в квадрате»); iOS/Android скругляют сами.
+- `assets/img/og-image.png` — 1200×630 для Telegram/WhatsApp/ВК.
+- `site.webmanifest` — PWA-манифест.
+- Всё перегенерируется одной командой: `python3 tools/make_app_icons.py`.
+- Старый `favicon.svg` (знак-искра) удалён — пользователь попросил заменить его лейблом кабинета.
+
+### Контраст (WCAG AA) — палитра расширена
+
+Мелкий текст в фирменных цветах не проходил 4.5:1. Добавлены токены:
+`--gold-ink: #6b6f31` (тёмный акцент на светлом) · `--gold-soft: #b9bcaf` (светлый акцент на оливке) · `--muted` затемнён до `#686d51`.
+Крупный акцент `--gold-2` (#a2a478) оставлен как был — он проходит порог для крупного текста (3:1).
+
+### Адаптивные фото
+
+`tools/make_responsive_images.py` делает копии 480/800 px для 10 фото галереи и прописывает `srcset`/`sizes`.
+Оригиналы (87–264 КБ) браузер больше не качает: на десктопе берётся вариант 480 px (≈ 19 КБ вместо 87 КБ).
+**Правило: новые фото в галерею — сначала прогнать этот инструмент.**
 
 ### Ловушки CSS, из-за которых уже ломался вид
 
@@ -106,11 +136,11 @@ Telegram `iplstudioo` · WhatsApp `wa.me/message/I47FFEBZUZ3HM1` · ВК `vk.ru/
 
 ## Что осталось (следующие этапы)
 
-1. **Форма записи → Telegram-бот.** Сейчас `mailto:` — заявки теряются. Нужен токен от @BotFather. Форма без JS: `action="https://api.telegram.org/bot<TOKEN>/sendMessage"`.
+1. **Включить Telegram-форму.** Код готов (`telegram.js` + `docs/TELEGRAM-SETUP.md`), но ждёт **токен от @BotFather** и **id чата**. Пока они не вписаны — форма работает через `mailto:` (запасной вариант, ничего не ломается). Вписать: `telegram.js`, строки `TELEGRAM_BOT_TOKEN` и `TELEGRAM_CHAT_ID`.
 2. **Домен `ipl-odintsovo.ru`** — CNAME на `mufassa955.github.io`, ~500–1500 ₽/год
 3. **Реквизиты** в `privacy.html` и `offer.html` — плейсхолдеры `[ЗАПОЛНИТЬ]`: ФИО/ИП, ИНН, ОГРНИП, e-mail. По ИНН можно найти остальное через egrul.nalog.ru
-4. **Lighthouse-аудит** — цифры скорости/SEO/доступности для защиты диплома
-5. **Скриншот-презентация** для защиты (страница целиком, `?static=1`)
+4. **Скриншот-презентация** для защиты (страница целиком, `?static=1`)
+5. ✅ Lighthouse-аудит — сделан, отчёт в `tools/lighthouse_lite.js` (Performance 95 · SEO 100 · Accessibility 100)
 
 ## История правок (для контекста)
 

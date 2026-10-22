@@ -115,7 +115,20 @@
     var noAlt = [], broken = [], noDims = [];
     Array.prototype.forEach.call(document.images, function (img) {
       if (!img.hasAttribute('alt')) noAlt.push(img.getAttribute('src') || '?');
-      if (img.complete && img.naturalWidth === 0) broken.push(img.getAttribute('src') || '?');
+      if (img.complete && img.naturalWidth === 0) {
+        // с srcset браузер грузит один из вариантов — проверяем, что хоть один доступен
+        var candidates = (img.getAttribute('srcset') || '').split(',')
+          .map(function (part) { return part.trim().split(/\s+/)[0]; })
+          .filter(Boolean);
+        var allBroken = candidates.length
+          ? candidates.every(function (url) {
+              var probe = new Image();
+              probe.src = url;
+              return probe.complete && probe.naturalWidth === 0;
+            })
+          : true;
+        if (allBroken) broken.push(img.getAttribute('src') || '?');
+      }
       if (!img.hasAttribute('width') || !img.hasAttribute('height')) noDims.push(img.getAttribute('src') || '?');
     });
     if (noAlt.length) report.warnings.push('Без alt: ' + noAlt.length + ' (' + noAlt.slice(0, 3).join(', ') + ')');
