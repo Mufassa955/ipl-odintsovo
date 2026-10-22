@@ -148,13 +148,6 @@ s { text-decoration-thickness: 1px; }
   background: var(--olive); opacity: .55; mix-blend-mode: multiply;
 }
 
-.hero__label {
-  position: absolute; inset: 0; z-index: 0; pointer-events: none;
-  background: var(--texture) center/cover no-repeat;
-  opacity: .07; mix-blend-mode: multiply;
-  -webkit-mask-image: linear-gradient(120deg, #000 20%, transparent 70%);
-  mask-image: linear-gradient(120deg, #000 20%, transparent 70%);
-}
 
 .footer__label {
   position: absolute; right: -40px; bottom: -30px; width: 320px; height: 190px;
@@ -206,7 +199,7 @@ s { text-decoration-thickness: 1px; }
 .fab__btn--call { background: var(--olive); }
 
 /* ---------- Hero ---------- */
-.hero { padding: 76px 0 96px; position: relative; overflow: hidden; }
+.hero { padding: 76px 0 96px; position: relative; overflow: hidden; background: var(--bg); }
 .hero__grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 56px; align-items: center; position: relative; z-index: 1; }
 .hero h1 { margin: 16px 0 22px; }
 .hero h1 em { font-style: normal; color: var(--olive); }
@@ -776,15 +769,9 @@ s { text-decoration-thickness: 1px; }
 }
 
 /* ---------- Водяной знак — часть фона, а не отдельный элемент ---------- */
-.hero__label, .footer__label {
+.footer__label {
   position: absolute; z-index: 0; pointer-events: none; user-select: none;
   line-height: 0; mix-blend-mode: multiply;
-}
-.hero__label {
-  right: 3%; bottom: 4%;
-}
-.hero__label img {
-  width: clamp(220px, 27vw, 430px); height: auto; opacity: .05;
 }
 .footer__label {
   right: 0; bottom: 0;
@@ -795,31 +782,6 @@ s { text-decoration-thickness: 1px; }
   mix-blend-mode: screen;
 }
 .hero__grid, .footer__grid, .footer__bottom { position: relative; z-index: 1; }
-
-/* ---------- Блок «Три режима работы» (INDIBA) ---------- */
-.tech-modes {
-  margin-top: 24px;
-  background: var(--card); border: 1px solid var(--line);
-  border-left: 3px solid var(--gold);
-  border-radius: 0 var(--radius) var(--radius) 0;
-  padding: 26px 28px;
-}
-.tech-modes__title {
-  font-family: var(--font-display); font-size: 20px; margin: 0 0 16px;
-}
-.tech-modes__list { display: grid; gap: 0; margin: 0; }
-.tech-modes__list li {
-  display: grid; grid-template-columns: 170px 150px minmax(0, 1fr);
-  gap: 18px; align-items: baseline;
-  padding: 13px 0; border-bottom: 1px solid var(--line);
-}
-.tech-modes__list li:last-child { border-bottom: none; }
-.tech-modes__list b { font-family: var(--font-display); font-size: 18px; font-weight: 500; }
-.tech-modes__temp {
-  font: 600 13px/1.4 var(--font-body); letter-spacing: var(--track-label);
-  text-transform: uppercase; color: var(--gold);
-}
-.tech-modes__text { font-size: 15px; color: var(--ink-2); }
 
 /* ---------- Бейдж «−10%» у фото — единый стиль с блоком скидок ---------- */
 
@@ -1083,9 +1045,6 @@ s { text-decoration-thickness: 1px; }
   .promo__foot { flex-direction: column; align-items: flex-start; gap: 18px; }
   .tech-prices { grid-template-columns: 1fr; gap: 18px; }
   .tech-prices__list { grid-template-columns: 1fr; }
-  .tech-modes { padding: 22px 20px; }
-  .tech-modes__list li { grid-template-columns: 1fr; gap: 4px; }
-  .tech-modes__text { font-size: 14.5px; }
   .map__head { flex-direction: column; align-items: flex-start; gap: 16px; }
   /* bento на 2 колонках: фото в одну колонку, широкие карточки — на две */
   .bento__card--pic { grid-column: span 1; grid-row: auto; }
