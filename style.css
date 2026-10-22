@@ -256,7 +256,7 @@ s { text-decoration-thickness: 1px; }
 
 /* ---------- Акция ---------- */
 /* ---------- Блок скидок ---------- */
-.promo { background: var(--olive); color: #f1efe8; padding: 58px 0; }
+.promo { background: var(--olive); color: #f1efe8; padding: 58px 0; scroll-margin-top: 110px; }
 .promo__head { margin-bottom: 30px; }
 .promo__title { font-family: var(--font-display); font-size: clamp(28px, 3.4vw, 42px); margin: 0; }
 
