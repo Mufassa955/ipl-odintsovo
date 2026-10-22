@@ -125,6 +125,19 @@ def make_favicon() -> pathlib.Path:
     return out
 
 
+def make_favicon_png() -> list[pathlib.Path]:
+    """PNG-иконки с отдельным именем: Safari месяцами держит старую иконку в своём
+    кэше, поэтому ссылаемся на файл, которого он ещё не видел."""
+    folder = ROOT / "assets" / "icons"
+    folder.mkdir(parents=True, exist_ok=True)
+    out = []
+    for n in (32, 64):
+        p = folder / f"favicon-{n}.png"
+        sticker(n).save(p, "PNG")
+        out.append(p)
+    return out
+
+
 def make_apple() -> pathlib.Path:
     out = ROOT / "apple-touch-icon.png"
     square_mark(180).save(out, "PNG")
@@ -189,7 +202,7 @@ def make_og() -> pathlib.Path:
 
 
 def main() -> None:
-    made = [make_favicon(), make_apple(), make_og(), *make_pwa_icons()]
+    made = [make_favicon(), make_apple(), make_og(), *make_favicon_png(), *make_pwa_icons()]
     for p in made:
         print(f"✅ {p.relative_to(ROOT)}  ({p.stat().st_size // 1024} КБ)")
 
