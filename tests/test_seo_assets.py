@@ -73,9 +73,18 @@ def test_form_has_status_and_telegram_hook():
 def test_telegram_script_has_placeholders():
     js = read("telegram.js")
     assert "TELEGRAM_BOT_TOKEN" in js and "TELEGRAM_CHAT_ID" in js
-    # fallback: пока токен не вписан, форма должна работать через mailto
+    # основной режим — через прокси, чтобы токен не попадал в страницу
+    assert "PROXY_URL" in js, "нет поддержки прокси"
+    # fallback: пока ничего не настроено, форма работает через mailto
     assert "mailto" in read("index.html"), "нет запасного варианта mailto"
-    assert "telegramReady" in js, "нет проверки готовности Telegram"
+    assert "configured" in js, "нет проверки готовности отправки"
+
+
+def test_telegram_token_not_committed():
+    """Токен бота не должен лежать в репозитории: только в секретах."""
+    for name in ("telegram.js", "index.html", "app.js"):
+        text = read(name)
+        assert not re.search(r"\b\d{8,10}:[A-Za-z0-9_-]{30,}\b", text), f"токен найден в {name}"
 
 
 def test_marquee_has_no_repeated_neighbours():

@@ -1,0 +1,96 @@
+name: Деплой сайта на GitHub Pages
+
+# Сайт собирается из main и публикуется на GitHub Pages.
+# Токен Telegram-бота НЕ хранится в коде: он берётся из секрета репозитория
+# (Settings → Secrets and variables → Actions → TELEGRAM_BOT_TOKEN)
+# и подставляется в telegram.js прямо во время сборки.
+# Если секрет не задан — форма работает через mailto, сайт не ломается.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Получить код
+        uses: actions/checkout@v4
+
+      - name: Проверить, что токен не попал в репозиторий
+        run: |
+          if git show HEAD:telegram.js | grep -qE "TELEGRAM_(BOT_TOKEN|CHAT_ID) = '[^']+"; then
+            echo "❌ токен в коде — так нельзя"; exit 1
+          fi
+          echo "✅ в коде токена нет"
+
+      - name: Проверить структуру HTML
+        run: python3 tools/check_html.py index.html privacy.html offer.html 404.html
+
+      - name: Подставить токен Telegram-бота
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          if [ -z "$TELEGRAM_BOT_TOKEN" ]; then
+            echo "⚠️  Токен не задан — форма отправки останется на mailto"
+            exit 0
+          fi
+
+          CHAT_ID="$TELEGRAM_CHAT_ID"
+          if [ -z "$CHAT_ID" ]; then
+            echo "ℹ️  Секрет TELEGRAM_CHAT_ID не задан — ищем чат через getUpdates"
+            curl -s "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getUpdates" > /tmp/updates.json
+            CHAT_ID=$(python3 -c "import json;d=json.load(open('/tmp/updates.json'));r=d.get('result') or [];print(r[0]['message']['chat']['id'] if r else '')")
+            if [ -z "$CHAT_ID" ]; then
+              echo "⚠️  Чат не найден: напишите боту любое сообщение и запустите деплой заново"
+              exit 0
+            fi
+            echo "✅ найден chat_id: $CHAT_ID"
+          fi
+
+          sed -i "s|var TELEGRAM_BOT_TOKEN = '';|var TELEGRAM_BOT_TOKEN = '$TELEGRAM_BOT_TOKEN';|" telegram.js
+          sed -i "s|var TELEGRAM_CHAT_ID = '';|var TELEGRAM_CHAT_ID = '$CHAT_ID';|" telegram.js
+          if grep -q "TELEGRAM_BOT_TOKEN = '';" telegram.js; then
+            echo "❌ не удалось подставить токен"; exit 1
+          fi
+          echo "✅ токен подставлен"
+
+      - name: Собрать файлы сайта
+        run: |
+          mkdir -p _site
+          rsync -a --delete \
+            --exclude '.git' --exclude '.github' --exclude '.venv' \
+            --exclude '__pycache__' --exclude '_site' --exclude 'tests' \
+            --exclude 'tools' --exclude 'docs' --exclude '*.md' \
+            --exclude 'deploy.zip' --exclude '_*.html' --exclude '_*.png' \
+            ./ _site/
+
+      - name: Настроить Pages
+        uses: actions/configure-pages@v5
+
+      - name: Загрузить артефакт
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '_site'
+
+  deploy:
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Опубликовать
+        id: deployment
+        uses: actions/deploy-pages@v4

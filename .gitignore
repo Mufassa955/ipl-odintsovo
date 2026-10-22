@@ -24,3 +24,6 @@ assets/img/masters/img-*.webp
 _m.html
 _shots/
 _audit.html
+
+# Секреты локальной сборки (никогда не коммитить)
+.secrets/
