@@ -105,7 +105,7 @@ open "http://127.0.0.1:8000/_audit.html?w=375"
 
 1. Репозиторий: `https://github.com/Mufassa955/ipl-odintsovo`
 2. **Settings → Pages → Source: Deploy from a branch → `main` / `/ (root)`**
-3. Сайт будет доступен по адресу `https://mufassa955.github.io/ipl-odintsovo/`
+3. Сайт будет доступен по адресу `https://ipl-odintsovo.ru/`
 
 ## Как править
 

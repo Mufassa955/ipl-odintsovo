@@ -47,7 +47,7 @@ Telegram  ──webhook──▶  тот же Worker, маршрут /telegram
 Услуга: Тотал Плюс — 8 800 ₽
 Комментарий: первый раз, чувствительная кожа
 
-Страница: https://mufassa955.github.io/ipl-odintsovo/
+Страница: https://ipl-odintsovo.ru/
 ```
 
 Под сообщением — две кнопки:
@@ -141,7 +141,7 @@ bash tools/deploy_proxy.sh
 | `TELEGRAM_BOT_TOKEN` | @BotFather |
 | `TELEGRAM_CHAT_ID` | `getUpdates` (см. выше) |
 | `TELEGRAM_WEBHOOK_SECRET` | не обязательна: если пусто, скрипт сгенерирует и допишет в `.secrets/telegram.env` |
-| `ALLOWED_ORIGIN` | домен сайта, по умолчанию `https://mufassa955.github.io` |
+| `ALLOWED_ORIGIN` | домен сайта, по умолчанию `https://ipl-odintsovo.ru` |
 
 Секрет вебхука — это «пароль» в заголовке `X-Telegram-Bot-Api-Secret-Token`.
 Без него любой мог бы прислать боту поддельное сообщение; с ним воркер отвечает `403`.
@@ -182,7 +182,7 @@ curl -s "https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/getWebhookInfo" \
 # ожидаем: https://ipl-form.ipl-odintsovo.workers.dev/telegram —
 
 # 3. В исходниках сайта нет токена
-curl -s https://mufassa955.github.io/ipl-odintsovo/telegram.js | grep -c "AAH"   # ожидаем: 0
+curl -s https://ipl-odintsovo.ru/telegram.js | grep -c "AAH"   # ожидаем: 0
 ```
 
 И главное — заполните форму на сайте: заявка должна прийти в Telegram за 1–2 секунды,

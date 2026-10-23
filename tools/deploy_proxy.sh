@@ -9,7 +9,7 @@
 #
 #  Как запускать:
 #    CF_API_TOKEN=... CF_ACCOUNT_ID=... \
-#    TELEGRAM_CHAT_ID=... ALLOWED_ORIGIN=https://mufassa955.github.io \
+#    TELEGRAM_CHAT_ID=... ALLOWED_ORIGIN=https://ipl-odintsovo.ru \
 #    bash tools/deploy_proxy.sh
 #
 #  Токен бота скрипт берёт из .secrets/telegram.env (файл в .gitignore)
@@ -31,7 +31,7 @@ fi
 : "${CF_ACCOUNT_ID:?нужен CF_ACCOUNT_ID (правый столбец на странице аккаунта)}"
 : "${TELEGRAM_BOT_TOKEN:?нужен TELEGRAM_BOT_TOKEN в .secrets/telegram.env}"
 : "${TELEGRAM_CHAT_ID:?нужен TELEGRAM_CHAT_ID — id чата для заявок}"
-ALLOWED_ORIGIN="${ALLOWED_ORIGIN:-https://mufassa955.github.io}"
+ALLOWED_ORIGIN="${ALLOWED_ORIGIN:-https://ipl-odintsovo.ru}"
 
 API="https://api.cloudflare.com/client/v4/accounts/${CF_ACCOUNT_ID}/workers"
 AUTH="Authorization: Bearer ${CF_API_TOKEN}"

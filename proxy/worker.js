@@ -14,7 +14,7 @@
    Токен в код страницы не попадает — только адрес этого воркера.
    ============================================================ */
 
-const SITE = 'https://mufassa955.github.io/ipl-odintsovo/';
+const SITE = 'https://ipl-odintsovo.ru/';
 const PHONES = '+7 993 266-63-66, +7 925 326-61-96';
 
 const TEXT = {
