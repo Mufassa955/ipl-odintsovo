@@ -75,8 +75,12 @@ export default {
 /* ---------------- Заявка с сайта ---------------- */
 
 async function handleForm(request, env) {
+  // ALLOWED_ORIGIN может содержать несколько адресов через запятую —
+  // чтобы форма работала и на старом github.io, и на новом домене.
+  const allowed = String(env.ALLOWED_ORIGIN || '').split(',').map(s => s.trim()).filter(Boolean);
+  const origin = request.headers.get('Origin') || '';
   const cors = {
-    'Access-Control-Allow-Origin': env.ALLOWED_ORIGIN || '*',
+    'Access-Control-Allow-Origin': allowed.indexOf(origin) !== -1 ? origin : (allowed[0] || '*'),
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type',
     'Access-Control-Max-Age': '86400',
