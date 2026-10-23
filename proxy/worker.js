@@ -205,13 +205,28 @@ async function handleCallback(cb, env) {
     }
     const who = [cb.from.first_name, cb.from.last_name].filter(Boolean).join(' ') ||
       (cb.from.username ? '@' + cb.from.username : 'мастер');
-    await tg(env, 'editMessageText', {
+    const takenText = '✅ Взял(а): ' + who + '\n\n' + current;
+    const edited = await tg(env, 'editMessageText', {
       chat_id: chatId,
       message_id: msg.message_id,
-      text: '✅ Взял(а): ' + who + '\n\n' + current,
+      text: takenText,
       disable_web_page_preview: true
     });
-    return tg(env, 'answerCallbackQuery', { callback_query_id: cb.id, text: 'Отмечено' });
+    if (!edited.ok) {
+      // Если отредактировать не удалось — отмечаем отдельным сообщением,
+      // чтобы статус точно был виден всей группе.
+      await tg(env, 'sendMessage', {
+        chat_id: chatId,
+        text: takenText,
+        disable_web_page_preview: true,
+        reply_to_message_id: msg.message_id,
+        allow_sending_without_reply: true
+      });
+    }
+    return tg(env, 'answerCallbackQuery', {
+      callback_query_id: cb.id,
+      text: 'Отмечено: заявка закреплена за вами'
+    });
   }
 
   // Позвать администратора
