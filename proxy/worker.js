@@ -112,8 +112,7 @@ async function handleForm(request, env) {
   if (digits.length >= 10) {
     buttons.push({
       text: 'WhatsApp клиенту',
-      url: 'https://wa.me/' + digits + '?text=' +
-        encodeURIComponent('Здравствуйте, ' + name + '! Это студия IPL в Одинцове. Вы оставляли заявку на сайте — уточните, пожалуйста, удобное время.')
+      url: 'https://wa.me/' + digits + '?text=' + encodeURIComponent(TEXT.greeting)
     });
   }
   buttons.push({ text: '✅ Взял', callback_data: 'taken' });
