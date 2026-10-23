@@ -131,6 +131,8 @@
     send(data).then(function () {
       form.reset();
       restoreButton();
+      var next = form.querySelector('.form__next');
+      if (next) next.hidden = false;
       showStatus('Готово! Заявка отправлена — перезвоним в течение 15 минут.', 'ok');
     }).catch(function () {
       restoreButton();

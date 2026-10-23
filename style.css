@@ -729,6 +729,10 @@ s { text-decoration-thickness: 1px; }
 .form__status--error { display: block; background: #fbeeec; color: #9c3427; border: 1px solid #eecfc9; }
 .form__status--wait { display: block; background: var(--bg-2); color: var(--muted); border: 1px solid var(--line); }
 
+/* Ссылка «Уточнить детали в Telegram» — появляется после отправки заявки */
+.form__next { margin: 4px 0 0; text-align: center; }
+.form__next[hidden] { display: none; }
+
 /* ---------- Карта «Как добраться» ---------- */
 .map {
   margin-top: 60px; background: var(--card);

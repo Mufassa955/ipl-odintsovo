@@ -65,14 +65,15 @@ Telegram `iplstudioo` · WhatsApp `wa.me/message/I47FFEBZUZ3HM1` · ВК `vk.ru/
 ## Инструменты проекта
 
 ```bash
-.venv/bin/python -m pytest tests/ -q            # 30 тестов
+.venv/bin/python -m pytest tests/ -q            # 31 тест
+.venv/bin/python tools/check_html.py             # баланс тегов, дубли id, битые якоря
+bash tools/deploy_proxy.sh                       # воркер + секреты + вебхук бота (см. docs/TELEGRAM-SETUP.md)
 .venv/bin/python tools/photo_prep.py photos --out assets/img --max-width 1600 --tone olive
 .venv/bin/python tools/make_icons.py --out assets/icons
 .venv/bin/python tools/make_app_icons.py         # иконки вкладки, apple-touch, PWA, OG-картинка
 .venv/bin/python tools/make_responsive_images.py # адаптивные версии фото галереи + srcset
 .venv/bin/python tools/contact_sheet.py photos --out sheet.png
 .venv/bin/python tools/update_schema.py          # пересобирает JSON-LD из текста страницы
-.venv/bin/python tools/check_html.py             # баланс тегов, дубли id, битые якоря
 # аудит вёрстки: открыть http://127.0.0.1:8777/_audit.html?w=375
 # статичный режим без анимаций: добавить ?static=1 к адресу
 ```
@@ -144,9 +145,13 @@ SEO (title/description/canonical/og/twitter/manifest/h1/JSON-LD), Accessibility 
 
 ## Что осталось (следующие этапы)
 
-1. ✅ **Telegram-форма работает** (2026-10-22). Схема: браузер → Cloudflare Worker (`proxy/worker.js`) → Telegram Bot API. В коде страницы только адрес прокси `https://ipl-form.ipl-odintsovo.workers.dev`, токен и chat id лежат в секретах Cloudflare. Бот `@ipl_odintsovo_bot`, чат `1269588547`. Проверено на живом сайте: заявка доходит за 1–2 с, статус «Готово! Заявка отправлена». Детали и передеплой — `docs/TELEGRAM-SETUP.md`.
+1. ✅ **Telegram-форма и бот работают** (2026-10-22…23). Схема: браузер → Cloudflare Worker (`proxy/worker.js`) → Telegram Bot API. В коде страницы только адрес прокси `https://ipl-form.ipl-odintsovo.workers.dev`, токен и chat id лежат в секретах Cloudflare. Бот `@ipl_odintsovo_bot`, чат `1269588547`. Проверено на живом сайте: заявка доходит за 1–2 с, статус «Готово! Заявка отправлена», под ним кнопка «Уточнить детали в Telegram →».
+   - ✅ **Воркер обслуживает и вебхук бота** — `POST /telegram`, проверка `X-Telegram-Bot-Api-Secret-Token`, иначе `403`. Меню: Записаться · Цены · Как добраться · Подготовка · Позвать администратора.
+   - ✅ **Заявка в Telegram с кнопками**: «WhatsApp клиенту» (готовый текст) и «✅ Взял» — сообщение получает заголовок «✅ Взял(а): Мария», повторное нажатие отвечает «Эту заявку уже взяли». Хранилища нет — отметка живёт в самом сообщении.
+   - ⚠️ Кнопка `tel:` в inline-клавиатуре невозможна (Telegram отклоняет URL). Телефон в боте — текстом.
    - ⚠️ В Cloudflare у воркера `ALLOWED_ORIGIN = https://mufassa955.github.io`. **После переезда на домен `ipl-odintsovo.ru` его нужно обновить**, иначе CORS заблокирует форму.
-   - `.secrets/` (токены бота и Cloudflare) в `.gitignore`, в git не попадает.
+   - `.secrets/` (токены бота и Cloudflare, секрет вебхука) в `.gitignore`, в git не попадает. Детали и передеплой — `docs/TELEGRAM-SETUP.md`.
+   - **Автозапись и график не автоматизируем** — мастерам удобнее самим распределять заявки. При необходимости следующего уровня: Cloudflare D1 + антифрод (телефон из Telegram, лимиты, подтверждение).
 2. **Домен `ipl-odintsovo.ru`** — CNAME на `mufassa955.github.io`, ~500–1500 ₽/год
 3. **Юридический пакет** (2026-10-22): переписаны `offer.html` и `privacy.html`, добавлены `consent.html` (согласие на обработку ПД) и `anketa.html` (анкета здоровья + информированное согласие для кабинета, `noindex`). В форме появился обязательный чекбокс согласия. Внутренний чек-лист — `docs/LEGAL-TODO.md`. Осталось от владельца: реквизиты `[ЗАПОЛНИТЬ]`, уведомление РКН (обработка + трансграничная передача), решение по хостингу (локализация).
 4. **Скриншот-презентация** для защиты (страница целиком, `?static=1`)

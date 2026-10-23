@@ -71,20 +71,40 @@ curl -s -X PUT "${API}/scripts/${SCRIPT_NAME}/secrets" \
   -d "$(python3 -c 'import json,os; print(json.dumps({"name":"TELEGRAM_CHAT_ID","text":os.environ["TELEGRAM_CHAT_ID"],"type":"secret_text"}))')" \
   | python3 -c 'import sys,json; d=json.load(sys.stdin); print("✅ chat id сохранён" if d.get("success") else "❌ "+json.dumps(d.get("errors"), ensure_ascii=False))'
 
-say "4/4 Включение адреса *.workers.dev"
+say "4/6 Включение адреса *.workers.dev"
 curl -s -X POST "${API}/scripts/${SCRIPT_NAME}/subdomain" \
   -H "$AUTH" -H 'Content-Type: application/json' -d '{"enabled":true,"previews_enabled":false}' \
   | python3 -c 'import sys,json; d=json.load(sys.stdin); print("✅ адрес включён" if d.get("success") else "❌ "+json.dumps(d.get("errors"), ensure_ascii=False))'
 
 SUB=$(curl -s -H "$AUTH" "https://api.cloudflare.com/client/v4/accounts/${CF_ACCOUNT_ID}/workers/subdomain" \
-  | python3 -c 'import sys,json; print(json.load(sys.stdin).get("result",{}).get("subdomain",""))')
+  | python3 -c 'import sys,json; print((json.load(sys.stdin).get("result") or {}).get("subdomain",""))')
+
+if [ -z "$SUB" ]; then
+  echo "❌ не удалось получить workers.dev-поддомен"; exit 1
+fi
+WORKER_URL="https://${SCRIPT_NAME}.${SUB}.workers.dev"
+export TELEGRAM_WEBHOOK_SECRET WORKER_URL
+
+say "5/6 Секрет для проверки вебхука"
+if [ -z "${TELEGRAM_WEBHOOK_SECRET:-}" ]; then
+  TELEGRAM_WEBHOOK_SECRET=$(openssl rand -hex 24)
+  echo "TELEGRAM_WEBHOOK_SECRET=${TELEGRAM_WEBHOOK_SECRET}" >> .secrets/telegram.env
+  echo "сгенерирован новый секрет (сохранён в .secrets/telegram.env)"
+fi
+curl -s -X PUT "${API}/scripts/${SCRIPT_NAME}/secrets" \
+  -H "$AUTH" -H 'Content-Type: application/json' \
+  -d "$(python3 -c 'import json,os; print(json.dumps({"name":"TELEGRAM_WEBHOOK_SECRET","text":os.environ["TELEGRAM_WEBHOOK_SECRET"],"type":"secret_text"}))')" \
+  | python3 -c 'import sys,json; d=json.load(sys.stdin); print("✅ секрет вебхука сохранён" if d.get("success") else "❌ "+json.dumps(d.get("errors"), ensure_ascii=False))'
+
+say "6/6 Регистрация вебхука бота"
+curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/setWebhook" \
+  -H 'Content-Type: application/json' \
+  -d "$(python3 -c 'import json,os; print(json.dumps({"url":os.environ["WORKER_URL"]+"/telegram","secret_token":os.environ["TELEGRAM_WEBHOOK_SECRET"],"allowed_updates":["message","callback_query"]}))')" \
+  | python3 -c 'import sys,json; d=json.load(sys.stdin); print("✅ вебхук подключён" if d.get("ok") else "❌ "+str(d.get("description")))'
 
 say "Готово"
-if [ -n "$SUB" ]; then
-  echo "Адрес прокси: https://${SCRIPT_NAME}.${SUB}.workers.dev"
-  echo
-  echo "Вставьте его в telegram.js → PROXY_URL = 'https://${SCRIPT_NAME}.${SUB}.workers.dev'"
-else
-  echo "Воркер загружен, но workers.dev-поддомен не найден."
-  echo "Включите его в панели: Workers & Pages → Settings → Subdomain."
-fi
+echo "Адрес прокси: ${WORKER_URL}"
+echo "Вебхук бота:  ${WORKER_URL}/telegram"
+echo
+echo "В telegram.js должно быть: PROXY_URL = '${WORKER_URL}'"
+
