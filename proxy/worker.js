@@ -143,7 +143,9 @@ async function handleTelegram(request, env) {
   let update;
   try { update = await request.json(); } catch { return new Response('ok'); }
 
-  if (update.callback_query) {
+  if (update.my_chat_member) {
+    await handleMembership(update.my_chat_member, env);
+  } else if (update.callback_query) {
     await handleCallback(update.callback_query, env);
   } else if (update.message) {
     await handleMessage(update.message, env);
@@ -151,10 +153,29 @@ async function handleTelegram(request, env) {
   return new Response('ok');
 }
 
+/* Бота добавили в чат или сделали админом */
+async function handleMembership(member, env) {
+  const status = member.new_chat_member && member.new_chat_member.status;
+  if (status !== 'administrator' && status !== 'member') return;
+  await tg(env, 'sendMessage', {
+    chat_id: member.chat.id,
+    text: 'Спасибо, что добавили. Чтобы заявки с сайта приходили в этот чат, ' +
+      'напишите здесь /id — бот покажет номер чата.'
+  });
+}
+
 async function handleMessage(message, env) {
   const text = (message.text || '').trim();
   const chatId = message.chat.id;
   const isCommand = text.startsWith('/');
+
+  // /id работает в любом чате: нужен, чтобы подключить группу к заявкам
+  if (/^\/id\b/i.test(text)) {
+    return tg(env, 'sendMessage', {
+      chat_id: chatId,
+      text: 'ID этого чата: ' + chatId
+    });
+  }
 
   // Личные сообщения бота — меню. В группе не отвечаем на болтовню.
   if (message.chat.type !== 'private') return;

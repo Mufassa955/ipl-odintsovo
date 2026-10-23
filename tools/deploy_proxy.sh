@@ -99,7 +99,7 @@ curl -s -X PUT "${API}/scripts/${SCRIPT_NAME}/secrets" \
 say "6/6 Регистрация вебхука бота"
 curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/setWebhook" \
   -H 'Content-Type: application/json' \
-  -d "$(python3 -c 'import json,os; print(json.dumps({"url":os.environ["WORKER_URL"]+"/telegram","secret_token":os.environ["TELEGRAM_WEBHOOK_SECRET"],"allowed_updates":["message","callback_query"]}))')" \
+  -d "$(python3 -c 'import json,os; print(json.dumps({"url":os.environ["WORKER_URL"]+"/telegram","secret_token":os.environ["TELEGRAM_WEBHOOK_SECRET"],"allowed_updates":["message","callback_query","my_chat_member"]}))')" \
   | python3 -c 'import sys,json; d=json.load(sys.stdin); print("✅ вебхук подключён" if d.get("ok") else "❌ "+str(d.get("description")))'
 
 say "Готово"

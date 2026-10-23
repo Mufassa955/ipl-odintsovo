@@ -80,27 +80,33 @@ Telegram  ──webhook──▶  тот же Worker, маршрут /telegram
 
 ---
 
-## Если нужно поменять чат получателя
+## Чат получателя и кто видит заявки
 
-Например, заявки должны идти не в личку, а в группу студии.
+Сейчас заявки идут в группу **«IPL "Заявки"»** (`-5566809130`) — там владелец и мастера.
 
-1. Создайте группу, добавьте бота, сделайте его **администратором**.
-2. Напишите в группе любое сообщение.
-3. Узнайте id группы:
+**Добавить человека:** открыть группу → «Добавить участника». Он сразу начнёт получать заявки.
+**Убрать:** выбрать участника → «Удалить из группы». Уведомления прекращаются сразу.
 
-   ```bash
-   curl -s "https://api.telegram.org/bot<ТОКЕН>/getUpdates" | grep -o '"chat":{"id":-\?[0-9]*'
-   ```
+Бот должен быть **администратором** группы — иначе он не сможет писать, если в группе ограничены сообщения.
 
-   У группы id отрицательный, например `-1001234567890`.
-4. Обновите секрет в Cloudflare:
+**Если нужно перевести заявки в другой чат:**
+
+1. Добавьте бота в чат и сделайте его администратором.
+2. Напишите в этом чате `/id` — бот ответит: «ID этого чата: …».
+3. Впишите номер в `.secrets/telegram.env` (`TELEGRAM_CHAT_ID=…`) и выполните:
 
    ```bash
    . .secrets/cloudflare.env && . .secrets/telegram.env
-   curl -X PUT "https://api.cloudflare.com/client/v4/accounts/$CF_ACCOUNT_ID/workers/scripts/ipl-form/secrets" \
-     -H "Authorization: Bearer $CF_API_TOKEN" -H 'Content-Type: application/json' \
-     -d '{"name":"TELEGRAM_CHAT_ID","text":"-1001234567890","type":"secret_text"}'
+   bash tools/deploy_proxy.sh
    ```
+
+Проверить, что бот видит группу:
+
+```bash
+. .secrets/telegram.env
+curl -s "https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/getChat?chat_id=$TELEGRAM_CHAT_ID" \
+  | python3 -c "import sys,json; print(json.load(sys.stdin)['result']['title'])"
+```
 
 ---
 
