@@ -6,6 +6,9 @@
   <title>IPL в Одинцово — лазерная эпиляция в БЦ «Телеграф»</title>
   <meta name="description" content="Лазерная эпиляция в Одинцове: IPL-аппарат 1S PRO, электроэпиляция МИКРОТЕРМ 5М, INDIBA. −20% на первый комплекс. БЦ «Телеграф», 5 минут от МЦК.">
   <link rel="canonical" href="https://ipl-odintsovo.ru/">
+  <link rel="preconnect" href="https://yandex.ru" crossorigin>
+  <link rel="dns-prefetch" href="https://t.me">
+  <link rel="dns-prefetch" href="https://wa.me">
 
   <link rel="icon" href="assets/icons/favicon-32.png?v=3" type="image/png" sizes="32x32">
   <link rel="icon" href="assets/icons/favicon-64.png?v=3" type="image/png" sizes="64x64">
@@ -1193,5 +1196,12 @@
 
   <script src="app.js?v=3" defer></script>
   <script src="telegram.js?v=3" defer></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('/sw.js').catch(function () {});
+      });
+    }
+  </script>
 </body>
 </html>
