@@ -230,4 +230,22 @@
       if (history.replaceState) history.replaceState(null, '', hash);
     });
   });
+  /* ---------- 7. Ripple-эффект на кнопках ---------- */
+  if (!reduceMotion) {
+    Array.prototype.forEach.call(document.querySelectorAll('.pill'), function (btn) {
+      btn.addEventListener('click', function (e) {
+        var rect = btn.getBoundingClientRect();
+        var size = Math.max(rect.width, rect.height);
+        var x = e.clientX - rect.left - size / 2;
+        var y = e.clientY - rect.top - size / 2;
+        var ripple = document.createElement('span');
+        ripple.className = 'ripple';
+        ripple.style.width = ripple.style.height = size + 'px';
+        ripple.style.left = x + 'px';
+        ripple.style.top = y + 'px';
+        btn.appendChild(ripple);
+        setTimeout(function () { ripple.remove(); }, 600);
+      });
+    });
+  }
 })();
