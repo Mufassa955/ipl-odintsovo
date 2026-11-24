@@ -1,5 +1,5 @@
 /* Service Worker — кэширование статики для мгновенной повторной загрузки */
-const CACHE = 'ipl-2026-11-21';
+const CACHE = 'ipl-2026-11-24';
 const PRECACHE = [
   '/',
   '/index.html',
